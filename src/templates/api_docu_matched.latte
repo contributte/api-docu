@@ -1,0 +1,78 @@
+{**
+ * @param $route Ublaboo\ApiRouter\ApiRoute
+ * @param $request Nette\Application\Request
+ *}
+
+{var $parameters = $route->getParameters()}
+
+{extends 'api_docu_base.latte'}
+
+{block title}{$route->getPath()}{/block}
+
+{block content}
+	<div class="apiDocu-container">
+		<div class="apiDocu-url">
+			{!$route->getPath()|routeMaskStyles}
+
+			<div class="apiDocu-url-method">{$route->getMethod()}</div>
+			
+			<small>/{$httpRequest->getUrl()->getRelativeUrl()}</small>
+		</div>
+
+		<h2>Description</h2>
+
+		<p class="apiDocu-description">{$route->getDescription()}</p>
+
+		<h2>Format</h2>
+
+		<p class="apiDocu-description">{$route->getFormat()} <small>({$route->getFormatFull()})</small></p>
+
+		<h2>Methods</h2>
+
+		<p class="apiDocu-description">{$route->getMethods()|implode:', '}</p>
+
+		<div class="apiDoc-parameters">
+			<h2>Mask parameters</h2>
+
+			<table class="table table-striped table-hover">
+				{foreach $route->getPlacehodlerParameters() as $parameter}
+					<tr>
+						<th>
+							<span class="apiDocu-mask-param">&lt;{$parameter}&gt;</span>
+							<div class="apiDocu-mask-param-description" n:if="isset($parameters[$parameter])">
+								<ul>
+									<li n:foreach="$parameters[$parameter] as $key => $info">
+										<strong>{$key}</strong>: {$info}
+									</li>
+								</ul>
+							</div>
+						</th>
+						<td>
+							{var $value = \Tracy\Debugger::dump($request->getParameter($parameter), TRUE)}
+							{!$value}
+						</td>
+					</tr>
+				{/foreach}
+			</table>
+		</div>
+
+		<div class="apiDoc-parameters">
+			<h2>Query parameters</h2>
+
+			<table class="table table-striped table-hover">
+				{foreach $request->getParameters() as $name => $parameter}
+					{continueIf $name == Ublaboo\ApiDocu\Starter::API_DOCU_STARTER_QUERY_KEY_TARGET}
+					{continueIf in_array($name, $route->getPlacehodlerParameters())}
+
+					<tr>
+						<th>{$name}</th>
+						<td>
+							{var $value = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
+							{!$value}
+						</td>
+					</tr>
+				{/foreach}
+			</table>
+		</div>
+	</div>
+{/block}

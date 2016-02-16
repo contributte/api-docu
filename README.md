@@ -1,2 +1,5 @@
-# api-docu
-REST api documentation for Nette Framework (used via annotation or manually), works with ublaboo/api-router
+#ApiDocu
+
+Documentation generating for ApiRouter routes - awesome runtime documentation
+
+Please see the documentation [here](http://ublaboo.paveljanda.com/api-docu/)

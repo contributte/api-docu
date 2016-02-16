@@ -2,18 +2,20 @@ html, body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
+	width: 100%;
+	display: table;
 }
 
 body {
-	display: flex;
 	text-align: center;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 	background-color: #2980b9;
 	font-size: 14px;
 	color: #2c3e50;
-	line-height: 1em;
+	overflow: auto;
+	display: table-cell;
+	box-sizing: border-box;
+	vertical-align: middle;
+	width: 100%;
 }
 
 .apiDocu-container, .apiDocu-container * {
@@ -30,11 +32,15 @@ body {
 
 .apiDocu-container {
 	text-align: left;
+	display: inline-block;
 	width: 1200px;
 	height: auto;
 	background-color: #ecf0f1;
 	padding: 0 1.5em 1.2em;
 	font-family: monospace;
+	margin: 2em auto;
+	vertical-align: middle;
+	line-height: 1;
 }
 
 @media only screen and (max-width: 1220px) {

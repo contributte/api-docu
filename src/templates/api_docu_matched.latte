@@ -9,6 +9,7 @@
 {foreach $request->getParameters() as $name => $parameter}
 	{continueIf $name == Ublaboo\ApiDocu\Starter::API_DOCU_STARTER_QUERY_KEY_TARGET}
 	{continueIf in_array($name, $route->getPlacehodlerParameters())}
+	{continueIf $name == 'action'}
 
 	{var $query_parameters[$name] = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
 {/foreach}

@@ -4,6 +4,14 @@
  *}
 
 {var $parameters = $route->getParameters()}
+{var $query_parameters = []}
+
+{foreach $request->getParameters() as $name => $parameter}
+	{continueIf $name == Ublaboo\ApiDocu\Starter::API_DOCU_STARTER_QUERY_KEY_TARGET}
+	{continueIf in_array($name, $route->getPlacehodlerParameters())}
+
+	{var $query_parameters[$name] = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
+{/foreach}
 
 {extends 'api_docu_base.latte'}
 
@@ -19,19 +27,23 @@
 			<small>/{$httpRequest->getUrl()->getRelativeUrl()}</small>
 		</div>
 
-		<h2>Description</h2>
+		{if $route->getDescription()}
+			<h2>Description</h2>
 
-		<p class="apiDocu-description">{$route->getDescription()}</p>
+			<p class="apiDocu-description">{$route->getDescription()}</p>
+		{/if}
 
-		<h2>Format</h2>
+		{if $route->getFormat()}
+			<h2>Format</h2>
 
-		<p class="apiDocu-description">{$route->getFormat()} <small>({$route->getFormatFull()})</small></p>
+			<p class="apiDocu-description">{$route->getFormat()} <small>({$route->getFormatFull()})</small></p>
+		{/if}
 
 		<h2>Methods</h2>
 
 		<p class="apiDocu-description">{$route->getMethods()|implode:', '}</p>
 
-		<div class="apiDoc-parameters">
+		<div class="apiDoc-parameters" n:if="$route->getPlacehodlerParameters()">
 			<h2>Mask parameters</h2>
 
 			<table class="table table-striped table-hover">
@@ -56,23 +68,19 @@
 			</table>
 		</div>
 
-		<div class="apiDoc-parameters">
+		<div class="apiDoc-parameters" n:if="$query_parameters">
 			<h2>Query parameters</h2>
 
 			<table class="table table-striped table-hover">
-				{foreach $request->getParameters() as $name => $parameter}
-					{continueIf $name == Ublaboo\ApiDocu\Starter::API_DOCU_STARTER_QUERY_KEY_TARGET}
-					{continueIf in_array($name, $route->getPlacehodlerParameters())}
-
-					<tr>
-						<th>{$name}</th>
-						<td>
-							{var $value = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
-							{!$value}
-						</td>
-					</tr>
+				{foreach $query_parameters as $name => $value}
+					<tr><th>{$name}</th><td>{!$value}</td></tr>
 				{/foreach}
 			</table>
 		</div>
+
+		{if $route->getExample()}
+			<h2>Example response</h2>
+			<pre>{json_encode($route->getExample(), JSON_PRETTY_PRINT)}</pre>
+		{/if}
 	</div>
 {/block}

@@ -94,6 +94,12 @@ body {
 	color: #fff;
 }
 
+pre {
+	padding: 0.5em;
+	background-color: #1abc9c;
+	color: #fff;
+}
+
 .apiDocu-mask-param-description ul {
 	margin: 0;
 	padding: 0;
@@ -153,6 +159,7 @@ h2 {
 .tracy-dump {
 	background-color: transparent !important;
 	margin: 0;
+	padding: 0;
 }
 
 .apiDoc-parameters table th {
@@ -169,7 +176,7 @@ table {
 }
 .table th,
 .table td {
-	padding: 8px;
+	padding: 0.75em;
 	line-height: 20px;
 	text-align: left;
 	vertical-align: top;
@@ -179,10 +186,6 @@ table {
 }
 .table thead th {
 	vertical-align: bottom;
-}
-.table-condensed th,
-.table-condensed td {
-	padding: 1em;
 }
 .table-striped tbody tr:nth-child(odd) td,
 .table-striped tbody tr:nth-child(odd) th {
@@ -205,7 +208,7 @@ pre.tracy-dump div {
 
 pre.tracy-dump div div {
 	border-left: 1px solid rgba(0, 0, 0, .1);
-	margin-left: .5ex;
+	margin-left: 0.5ex;
 }
 
 .tracy-dump-array, .tracy-dump-object {

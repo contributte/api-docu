@@ -19,8 +19,8 @@ use Ublaboo\Responses\JsonPrettyResponse;
 class Starter extends Nette\Object
 {
 
-	const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';
-	const API_DOCU_STARTER_QUERY_KEY_ALL    = '__apiDocuAll';
+	const API_DOCU_STARTER_QUERY_KEY_TARGET   = '__apiDocu';
+	const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
 
 	/**
 	 * @var Generator
@@ -69,7 +69,7 @@ class Starter extends Nette\Object
 
 	public function routeMatched(ApiRoute $route, Request $request)
 	{
-		if (NULL !== ($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_ALL))) {
+		if (NULL !== ($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE))) {
 			$this->generator->generateAll($this->router);
 
 			exit(0);

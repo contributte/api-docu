@@ -4,7 +4,7 @@
 	<title>ApiDocu{ifset title} - {include title}{/}</title>
 	<style>{? readfile($base_dir . '/css/api_docu.css')}</style>
 </head>
-<body>
+<body{ifset body-class} class="{include body-class}"{/ifset}>
 	{include content}
 </body>
 </html>

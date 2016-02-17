@@ -1,17 +1,8 @@
 {**
  * @param $route Ublaboo\ApiRouter\ApiRoute
- * @param $request Nette\Application\Request
  *}
 
 {var $parameters = $route->getParameters()}
-{var $query_parameters = []}
-
-{foreach $request->getParameters() as $name => $parameter}
-	{continueIf in_array($name, $route->getPlacehodlerParameters())}
-	{continueIf $name == 'action'}
-
-	{var $query_parameters[$name] = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
-{/foreach}
 
 {extends 'api_docu_base.latte'}
 
@@ -23,8 +14,6 @@
 			{!$route->getPath()|routeMaskStyles}
 
 			<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>
-			
-			<small>/{$httpRequest->getUrl()->getRelativeUrl()}</small>
 		</div>
 
 		{if $route->getDescription()}
@@ -46,7 +35,7 @@
 		<div class="apiDoc-parameters" n:if="$route->getPlacehodlerParameters()">
 			<h2>Mask parameters</h2>
 
-			<table class="apiDoc-table-with-values">
+			<table>
 				{foreach $route->getPlacehodlerParameters() as $parameter}
 					<tr>
 						<th>
@@ -59,21 +48,7 @@
 								</ul>
 							</div>
 						</th>
-						<td>
-							{var $value = \Tracy\Debugger::dump($request->getParameter($parameter), TRUE)}
-							{!$value}
-						</td>
 					</tr>
-				{/foreach}
-			</table>
-		</div>
-
-		<div class="apiDoc-parameters" n:if="$query_parameters">
-			<h2>Query parameters</h2>
-
-			<table class="apiDoc-table-with-values">
-				{foreach $query_parameters as $name => $value}
-					<tr><th>{$name}</th><td>{!$value}</td></tr>
 				{/foreach}
 			</table>
 		</div>

@@ -14,8 +14,13 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 {
 
 	private $defaults = [
-		'liveDocu' => TRUE
+		'apiDir' => '%wwwDir%/api'
 	];
+
+	/**
+	 * @var array
+	 */
+	protected $config;
 
 
 	public function loadConfiguration()
@@ -24,23 +29,16 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	}
 
 
-	private function _getConfig()
-	{
-		$config = $this->validateConfig($this->defaults, $this->config);
-
-		return $config;
-	}
-
-
 	public function beforeCompile()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->compiler->getConfig();
+		$config = $this->config;
 
 		$router = $builder->getDefinition('router');
 
 		$builder->addDefinition($this->prefix('generator'))
-			->setClass('Ublaboo\ApiDocu\Generator');
+			->setClass('Ublaboo\ApiDocu\Generator')
+			->setArguments([$config['apiDir']]);
 
 		$builder->addDefinition($this->prefix('starter'))
 			->setClass('Ublaboo\ApiDocu\Starter')
@@ -48,6 +46,19 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 				$builder->getDefinition($this->prefix('generator')),
 				$builder->getDefinition('router')
 			])->addTag('run');
+	}
+
+
+	private function _getConfig()
+	{
+		$config = $this->validateConfig($this->defaults, $this->config);
+
+		$config['apiDir'] = Nette\DI\Helpers::expand(
+			$config['apiDir'],
+			$this->getContainerBuilder()->parameters
+		);
+
+		return $config;
 	}
 
 }

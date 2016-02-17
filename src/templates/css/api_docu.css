@@ -7,8 +7,8 @@ html, body {
 }
 
 body {
-	text-align: center;
 	background-color: #2980b9;
+	text-align: center;
 	font-size: 14px;
 	color: #2c3e50;
 	overflow: auto;
@@ -16,6 +16,10 @@ body {
 	box-sizing: border-box;
 	vertical-align: middle;
 	width: 100%;
+}
+
+body.success {
+	background-color: #1abc9c;
 }
 
 .apiDocu-container, .apiDocu-container * {
@@ -168,37 +172,32 @@ h2 {
 	padding: 0;
 }
 
-.apiDoc-parameters table th {
+.apiDoc-parameters .apiDoc-table-with-values th {
 	width: 40%;
 }
 
 table {
 	max-width: 100%;
+	width: 100%;
 	background-color: transparent;
 	border-spacing: 0 3px;
 }
-.table {
-	width: 100%;
-}
-.table th,
-.table td {
+table th,
+table td {
 	padding: 0.75em;
 	line-height: 20px;
 	text-align: left;
 	vertical-align: top;
 }
-.table th {
+table th {
 	font-weight: bold;
 }
-.table thead th {
-	vertical-align: bottom;
-}
-.table-striped tbody tr:nth-child(odd) td,
-.table-striped tbody tr:nth-child(odd) th {
+table tr:nth-child(odd) td,
+table tr:nth-child(odd) th {
 	background-color: #fff;
 }
-.table-striped tbody tr:nth-child(even) td,
-.table-striped tbody tr:nth-child(even) th {
+table tr:nth-child(even) td,
+table tr:nth-child(even) th {
 	background-color: #fff;
 }
 

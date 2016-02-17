@@ -1,0 +1,11 @@
+{**
+ * @param $sections array
+ *}
+
+{extends 'api_docu_base.latte'}
+
+{block title}Index{/block}
+
+{block content}
+	{include 'api_docu_routes_list.latte', sections => $sections}
+{/block}

@@ -1,0 +1,42 @@
+{**
+ * @param $sections array
+ *}
+
+{var $hr_used = FALSE}
+{var $has_some_section = FALSE}
+
+<div class="apiDocu-container apiDocu-index">
+	<div class="apiDocu-url-list">
+		{foreach $sections as $section_name => $section}
+			{if is_array($section)}
+				{var $has_some_section = TRUE}
+
+				<h2 class="apiDocu-section-title">{$section_name}</h2>
+
+				<div class="apiDocu-section">
+					{include section, routes => $section, section_name => $section_name}
+				</div>
+			{else}
+				{if $has_some_section && !$hr_used}
+					<hr>
+					{var $hr_used = TRUE}
+				{/if}
+				{include route, route => $section, file_name => $section_name}
+			{/if}
+		{/foreach}
+	</div>
+</div>
+
+{define route}
+	<a href="{ifset $section_name}{$section_name}.{/}{$file_name}.html" class="apiDocu-url">
+		{!$route->getPath()|routeMaskStyles}
+
+		<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>
+	</a>
+{/define}
+
+{define section}
+	{foreach $routes as $file_name => $route}
+		{include route, route => $route, file_name => $file_name, section_name => $section_name}
+	{/foreach}
+{/define}

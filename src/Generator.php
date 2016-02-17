@@ -52,19 +52,39 @@ class Generator extends Nette\Object
 			$routes = $this->getApiRoutesFromIterator($router);
 		}
 
-		$i = 1;
+		$sections = [];
+		$file_name = 1;
 
 		foreach ($routes as $route) {
-			$template = $this->createTemplate('api_docu_one.latte');
+			if ($route->getSection()) {
+				if (empty($sections[$route->getSection()])) {
+					$sections[$route->getSection()] = [];
+				}
 
-			@mkdir($this->api_dir);
+				$sections[$route->getSection()][$file_name++] = $route;
+			} else {
+				$sections[$file_name++] = $route;
+			}
+		}
 
-			file_put_contents(
-				"{$this->api_dir}/{$i}.html",
-				(string) $this->generateOne($route, $routes, $template)
-			);
+		@mkdir($this->api_dir);
 
-			$i++;
+		/**
+		 * Create index.html
+		 */
+		$this->generateIndex($sections);
+
+		/**
+		 * Create *.html for each defined ApiRoute
+		 */
+		foreach ($sections as $section_name => $routes) {
+			if (is_array($routes)) {
+				foreach ($routes as $file_name => $route) {
+					$this->generateOne($route, $sections, "$section_name.$file_name");
+				}
+			} else {
+				$this->generateOne($routes, $sections, $section_name);
+			}
 		}
 
 		$this->generateSuccess();
@@ -89,14 +109,28 @@ class Generator extends Nette\Object
 	}
 
 
-	public function generateOne(ApiRoute $route, $routes, $template)
+	public function generateOne(ApiRoute $route, $sections, $file_name)
 	{
+		$template = $this->createTemplate('api_docu_one.latte');
+
 		$template->setParameters([
 			'route'       => $route,
-			'routes'      => $routes
+			'sections'    => $sections
 		]);
 
-		return $template;
+		file_put_contents("{$this->api_dir}/{$file_name}.html", (string) $template);
+	}
+
+
+	public function generateIndex($sections)
+	{
+		$template = $this->createTemplate('api_docu_index.latte');
+
+		$template->setParameters([
+			'sections' => $sections
+		]);
+
+		file_put_contents("{$this->api_dir}/index.html", (string) $template);
 	}
 
 

@@ -30,21 +30,25 @@ body.success {
 	border-radius: 1px;
 }
 
-.apiDocu-container > * {
-	margin-top: 1.2em;
-}
-
 .apiDocu-container {
 	text-align: left;
 	display: inline-block;
 	width: 1200px;
 	height: auto;
 	background-color: #ecf0f1;
-	padding: 0 1.5em 1.2em;
+	padding: 1.2em 1.5em 1.2em;
 	font-family: monospace;
-	margin: 2em auto;
 	vertical-align: middle;
 	line-height: 1;
+	margin: 0 auto 2em;
+}
+
+.apiDocu-index {
+	background-color: #ecf0f1;
+}
+
+.apiDocu-container:first-child {
+	margin: 2em auto;
 }
 
 @media only screen and (max-width: 1220px) {
@@ -77,11 +81,40 @@ body.success {
 	font-weight: bold;
 }
 
+a.apiDocu-url {
+	display: block;
+	text-decoration: none;
+	color: #2c3e50;
+}
+
+a.apiDocu-url:visited {
+	color: #2c3e50;
+}
+
+a.apiDocu-url:hover {
+	background-color: #F7F7F7;
+	cursor: pointer;
+}
+
 .apiDocu-url > .apiDocu-url-method {
 	font-weight: bold;
 	color: #e74c3c;
 	float: right;
-	font-size: 20px;
+}
+
+.apiDocu-section-title {
+	background-color: #e67e22;
+	color: #fff;
+	padding: 1em;
+	margin-top: 1.5em;
+}
+
+.apiDocu-section-title:first-child {
+	margin-top: 0.5em;
+}
+
+.apiDocu-section {
+	padding: 0 0 0 1em;
 }
 
 .apiDocu-url small {
@@ -90,6 +123,20 @@ body.success {
 	margin-top: 1em;
 	font-size: 15px;
 	color: #7f8c8d;
+}
+
+.apiDocu-url-list .apiDocu-url {
+	margin-top: 3px;
+}
+
+.apiDocu-url-list .apiDocu-url:first-child {
+	margin-top: 0;
+}
+
+.apiDocu-url-list hr {
+	border-color: transparent;
+	height: 0;
+	margin: 1.5em 0 0;
 }
 
 .apiDocu-mask-param {
@@ -146,6 +193,10 @@ pre {
 h1, h2, h3, h4, h5 {
 	margin-top: 2em;
 	font-weight: normal;
+}
+
+body.success h2 {
+	margin-top: 1em;
 }
 
 h1 {

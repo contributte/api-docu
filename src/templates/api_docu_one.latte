@@ -9,6 +9,8 @@
 {block title}{$route->getPath()}{/block}
 
 {block content}
+	{include 'api_docu_routes_list.latte', sections => $sections}
+
 	<div class="apiDocu-container">
 		<div class="apiDocu-url">
 			{!$route->getPath()|routeMaskStyles}

@@ -28,7 +28,7 @@
 		"nette/http"         : "~2.3.0",
 		"nette/application"  : "~2.3.0",
 		"nette/di"           : "~2.3.0",
-		"ublaboo/api-router" : "dev-master"
+		"ublaboo/api-router" : "~1.0.0"
 	},
 	"require-dev": {
 		"nette/tester"    : "~1.6.1",

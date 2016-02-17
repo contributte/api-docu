@@ -14,7 +14,6 @@ use Nette\Application\Request;
 use Nette\Http;
 use Ublaboo\ApiRouter\ApiRoute;
 use Nette\Application\Routers\RouteList;
-use Ublaboo\Responses\JsonPrettyResponse;
 
 class Starter extends Nette\Object
 {
@@ -43,6 +42,12 @@ class Starter extends Nette\Object
 	private $httpRequest;
 
 
+	/**
+	 * @param Generator     $generator
+	 * @param IRouter       $router
+	 * @param Http\Response $response
+	 * @param Http\Request  $httpRequest
+	 */
 	public function __construct(
 		Generator $generator,
 		IRouter $router,
@@ -67,6 +72,12 @@ class Starter extends Nette\Object
 	}
 
 
+	/**
+	 * Event thatis firex when particular ApiRoute is matched
+	 * @param  ApiRoute $route
+	 * @param  Request  $request
+	 * @return void
+	 */
 	public function routeMatched(ApiRoute $route, Request $request)
 	{
 		if (NULL !== ($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE))) {

@@ -33,6 +33,11 @@ class Generator extends Nette\Object
 	private $api_dir;
 
 
+	/**
+	 * @param string                                $api_dir
+	 * @param Nette\Application\UI\ITemplateFactory $templateFactory
+	 * @param Nette\Http\Request                    $httpRequest
+	 */
 	public function __construct(
 		$api_dir,
 		Nette\Application\UI\ITemplateFactory $templateFactory,
@@ -44,6 +49,10 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @param  IRouter $router
+	 * @return void
+	 */
 	public function generateAll(IRouter $router)
 	{
 		if ($router instanceof ApiRoute) {
@@ -91,6 +100,11 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @param  ApiRoute $route
+	 * @param  Request  $request
+	 * @return void
+	 */
 	public function generateTarget(ApiRoute $route, Request $request)
 	{
 		$template = $this->createTemplate('api_docu_matched.latte');
@@ -109,6 +123,12 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @param  ApiRoute $route
+	 * @param  strng    $sections
+	 * @param  string   $file_name
+	 * @return void
+	 */
 	public function generateOne(ApiRoute $route, $sections, $file_name)
 	{
 		$template = $this->createTemplate('api_docu_one.latte');
@@ -122,6 +142,10 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @param  array $sections
+	 * @return void
+	 */
 	public function generateIndex($sections)
 	{
 		$template = $this->createTemplate('api_docu_index.latte');
@@ -134,6 +158,9 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @return void
+	 */
 	public function generateSuccess()
 	{
 		$template = $this->createTemplate('api_docu_success.latte');
@@ -150,6 +177,10 @@ class Generator extends Nette\Object
 	}
 
 
+	/**
+	 * @param  string
+	 * @return Nette\Application\UI\ITemplate
+	 */
 	public function createTemplate($which)
 	{
 		$template = $this->templateFactory->createTemplate();

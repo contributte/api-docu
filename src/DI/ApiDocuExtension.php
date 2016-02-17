@@ -23,12 +23,18 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	protected $config;
 
 
+	/**
+	 * @return void
+	 */
 	public function loadConfiguration()
 	{
 		$this->config = $this->_getConfig();
 	}
 
 
+	/**
+	 * @return void
+	 */
 	public function beforeCompile()
 	{
 		$builder = $this->getContainerBuilder();
@@ -49,6 +55,9 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	}
 
 
+	/**
+	 * @return array
+	 */
 	private function _getConfig()
 	{
 		$config = $this->validateConfig($this->defaults, $this->config);

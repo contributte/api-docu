@@ -7,7 +7,6 @@
 {var $query_parameters = []}
 
 {foreach $request->getParameters() as $name => $parameter}
-	{continueIf $name == Ublaboo\ApiDocu\Starter::API_DOCU_STARTER_QUERY_KEY_TARGET}
 	{continueIf in_array($name, $route->getPlacehodlerParameters())}
 	{continueIf $name == 'action'}
 
@@ -23,7 +22,7 @@
 		<div class="apiDocu-url">
 			{!$route->getPath()|routeMaskStyles}
 
-			<div class="apiDocu-url-method">{$route->getMethod()}</div>
+			<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>
 			
 			<small>/{$httpRequest->getUrl()->getRelativeUrl()}</small>
 		</div>

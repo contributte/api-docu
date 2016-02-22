@@ -32,6 +32,12 @@
 		{!$route->getPath()|routeMaskStyles}
 
 		<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>
+
+		<div class="apiDocu-url-tags" n:if="$route->getTags()">
+			{foreach $route->getTags() as $tag => $color}
+				<span style="background-color: {!$color};" class="apiDocu-url-tag">{$tag}</span>
+			{/foreach}
+		</div>
 	</a>
 {/define}
 

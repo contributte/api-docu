@@ -100,6 +100,21 @@ a.apiDocu-url:hover {
 	font-weight: bold;
 	color: #e74c3c;
 	float: right;
+	margin-left: 1em;
+}
+
+.apiDocu-url > .apiDocu-url-tags {
+	float: right;
+}
+
+.apiDocu-url-tag {
+	display: inline-block;
+	color: #fff;
+	padding: 6px;
+	border-radius: 1px;
+	font-size: 12px;
+	text-transform: uppercase;
+	margin-top: -0.4em;
 }
 
 .apiDocu-section-title {

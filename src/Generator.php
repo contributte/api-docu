@@ -55,29 +55,11 @@ class Generator extends Nette\Object
 	 */
 	public function generateAll(IRouter $router)
 	{
-		$routes = [];
-		$sections = [];
-		$file_name = 1;
+		$sections = $this->splitRoutesIntoSections($router);
 
-		if ($router instanceof ApiRoute) {
-			$routes = [$router];
-		} else if ($router instanceof \IteratorAggregate) {
-			$routes = $this->getApiRoutesFromIterator($router);
+		if (!file_exists($this->api_dir) && !is_dir($this->api_dir)) {
+			mkdir($this->api_dir);
 		}
-
-		foreach ($routes as $route) {
-			if ($route->getSection()) {
-				if (empty($sections[$route->getSection()])) {
-					$sections[$route->getSection()] = [];
-				}
-
-				$sections[$route->getSection()][$file_name++] = $route;
-			} else {
-				$sections[$file_name++] = $route;
-			}
-		}
-
-		mkdir($this->api_dir);
 
 		/**
 		 * Create index.html
@@ -202,6 +184,34 @@ class Generator extends Nette\Object
 	/********************************************************************************
 	 *                                   INTERNAL                                   *
 	 ********************************************************************************/
+
+
+	private function splitRoutesIntoSections(IRouter $router)
+	{
+		$routes = [];
+		$sections = [];
+		$file_name = 1;
+
+		if ($router instanceof ApiRoute) {
+			$routes = [$router];
+		} else if ($router instanceof \IteratorAggregate) {
+			$routes = $this->getApiRoutesFromIterator($router);
+		}
+
+		foreach ($routes as $route) {
+			if ($route->getSection()) {
+				if (empty($sections[$route->getSection()])) {
+					$sections[$route->getSection()] = [];
+				}
+
+				$sections[$route->getSection()][$file_name++] = $route;
+			} else {
+				$sections[$file_name++] = $route;
+			}
+		}
+
+		return $sections;
+	}
 
 
 	/**

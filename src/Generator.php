@@ -55,14 +55,15 @@ class Generator extends Nette\Object
 	 */
 	public function generateAll(IRouter $router)
 	{
+		$routes = [];
+		$sections = [];
+		$file_name = 1;
+
 		if ($router instanceof ApiRoute) {
 			$routes = [$router];
 		} else if ($router instanceof \IteratorAggregate) {
 			$routes = $this->getApiRoutesFromIterator($router);
 		}
-
-		$sections = [];
-		$file_name = 1;
 
 		foreach ($routes as $route) {
 			if ($route->getSection()) {
@@ -76,7 +77,7 @@ class Generator extends Nette\Object
 			}
 		}
 
-		@mkdir($this->api_dir);
+		mkdir($this->api_dir);
 
 		/**
 		 * Create index.html
@@ -125,7 +126,7 @@ class Generator extends Nette\Object
 
 	/**
 	 * @param  ApiRoute $route
-	 * @param  strng    $sections
+	 * @param  array    $sections
 	 * @param  string   $file_name
 	 * @return void
 	 */
@@ -186,7 +187,9 @@ class Generator extends Nette\Object
 		$template = $this->templateFactory->createTemplate();
 		$template->setFile(__DIR__ . '/templates/' . $which);
 
-		$template->base_dir = __DIR__ . '/templates';
+		if ($template instanceof Nette\Application\UI\ITemplate) {
+			$template->base_dir = __DIR__ . '/templates';
+		}
 
 		$template->addFilter('routeMaskStyles', function($mask) {
 			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);

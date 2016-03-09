@@ -40,8 +40,6 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 		$config = $this->config;
 
-		$router = $builder->getDefinition('router');
-
 		$builder->addDefinition($this->prefix('generator'))
 			->setClass('Ublaboo\ApiDocu\Generator')
 			->setArguments([$config['apiDir']]);
@@ -58,7 +56,7 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	/**
 	 * @return array
 	 */
-	private function _getConfig()
+	protected function _getConfig()
 	{
 		$config = $this->validateConfig($this->defaults, $this->config);
 

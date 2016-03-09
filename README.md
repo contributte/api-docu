@@ -1,3 +1,4 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ublaboo/api-docu/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ublaboo/api-docu/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/ublaboo/api-docu/v/stable)](https://packagist.org/packages/ublaboo/api-docu)
 [![License](https://poser.pugx.org/ublaboo/api-docu/license)](https://packagist.org/packages/ublaboo/api-docu)
 [![Total Downloads](https://poser.pugx.org/ublaboo/api-docu/downloads)](https://packagist.org/packages/ublaboo/api-docu)

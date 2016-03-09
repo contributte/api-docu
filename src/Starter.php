@@ -54,20 +54,14 @@ class Starter extends Nette\Object
 		Http\Response $response,
 		Http\Request $httpRequest
 	) {
-		if (!($router instanceof RouteList)) {
-			return;
-		}
-
 		$this->generator = $generator;
 		$this->router = $router;
 
 		$this->response = $response;
 		$this->httpRequest = $httpRequest;
 
-		foreach ($router as $route) {
-			if ($route instanceof ApiRoute) {
-				$route->onMatch[] = [$this, 'routeMatched'];
-			}
+		if ($router instanceof RouteList) {
+			$this->attachEvents();
 		}
 	}
 
@@ -90,6 +84,20 @@ class Starter extends Nette\Object
 			$this->generator->generateTarget($route, $request);
 
 			exit(0);
+		}
+	}
+
+
+	/**
+	 * Find ApiRoutes and add listener to each ApiRoute::onMatch event
+	 * @return void
+	 */
+	protected function attachEvents()
+	{
+		foreach ($this->router as $route) {
+			if ($route instanceof ApiRoute) {
+				$route->onMatch[] = [$this, 'routeMatched'];
+			}
 		}
 	}
 

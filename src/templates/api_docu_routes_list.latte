@@ -42,7 +42,7 @@
 {/define}
 
 {define section}
-	{foreach $routes as $file_name => $route}
-		{include route, route => $route, file_name => $file_name, section_name => $section_name}
+	{foreach $routes as $file_name => $r}
+		{include route, route => $r, file_name => $file_name, section_name => $section_name}
 	{/foreach}
 {/define}

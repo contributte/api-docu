@@ -13,13 +13,13 @@
 
 	<div class="apiDocu-container">
 		<div class="apiDocu-url">
-			{!$route->getPath()|routeMaskStyles}
+			{$route->getPath()|routeMaskStyles|noescape}
 
 			<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>
 
 			<div class="apiDocu-url-tags" n:if="$route->getTags()">
 				{foreach $route->getTags() as $tag => $color}
-					<span style="background-color: {!$color};" class="apiDocu-url-tag">{$tag}</span>
+					<span style="background-color: {$color|noescape};" class="apiDocu-url-tag">{$tag}</span>
 				{/foreach}
 			</div>
 		</div>

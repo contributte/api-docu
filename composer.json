@@ -25,10 +25,11 @@
 		}
 	},
 	"require": {
-		"nette/http"         : "^2.3.0",
-		"nette/application"  : "^2.3.0",
-		"nette/di"           : "^2.3.0",
-		"ublaboo/api-router" : "~1.2.0"
+		"nette/http"         : "^2.3",
+		"nette/application"  : "^2.3",
+		"nette/di"           : "^2.3",
+		"latte/latte"        : "^2.3",
+		"ublaboo/api-router" : "~1.2"
 	},
 	"require-dev": {
 		"nette/tester"    : "~1.6.1",

@@ -36,7 +36,7 @@
 		{if $route->getDescription()}
 			<h2>Description</h2>
 
-			<p class="apiDocu-description">{$route->getDescription()}</p>
+			<pre class="apiDocu-description apiDocu-description-main">{$route->getDescription()|nl2br|noescape}</pre>
 		{/if}
 
 		{if $route->getFormat()}
@@ -49,10 +49,10 @@
 
 		<p class="apiDocu-description">{$route->getMethods()|implode:', '}</p>
 
-		<div class="apiDoc-parameters" n:if="$route->getPlacehodlerParameters()">
+		<div class="apiDocu-parameters" n:if="$route->getPlacehodlerParameters()">
 			<h2>Mask parameters</h2>
 
-			<table class="apiDoc-table-with-values">
+			<table class="apiDocu-table-with-values">
 				{foreach $route->getPlacehodlerParameters() as $parameter}
 					<tr>
 						<th>
@@ -74,10 +74,10 @@
 			</table>
 		</div>
 
-		<div class="apiDoc-parameters" n:if="$query_parameters">
+		<div class="apiDocu-parameters" n:if="$query_parameters">
 			<h2>Query parameters</h2>
 
-			<table class="apiDoc-table-with-values">
+			<table class="apiDocu-table-with-values">
 				{foreach $query_parameters as $name => $value}
 					<tr><th>{$name}</th><td>{$value|noescape}</td></tr>
 				{/foreach}
@@ -86,7 +86,7 @@
 
 		{if $route->getExample()}
 			<h2>Example response</h2>
-			<pre>{json_encode($route->getExample(), JSON_PRETTY_PRINT)}</pre>
+			<pre class="apiDocu-parameters-box">{json_encode($route->getExample(), JSON_PRETTY_PRINT)}</pre>
 		{/if}
 	</div>
 {/block}

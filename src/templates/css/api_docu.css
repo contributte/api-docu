@@ -166,7 +166,7 @@ a.apiDocu-url:hover {
 	color: #fff;
 }
 
-pre {
+pre.apiDocu-parameters-box {
 	padding: 0.5em;
 	background-color: #1abc9c;
 	color: #fff;
@@ -178,7 +178,7 @@ pre {
 	list-style: none;
 }
 
-.apiDoc-parameters > .apiDoc-parameters-column {
+.apiDocu-parameters > .apiDocu-parameters-column {
 	width: calc(50% - 0.5em);
 	line-height: 1em;
 	font-size: 15px;
@@ -186,22 +186,29 @@ pre {
 	vertical-align: top;
 }
 
+pre.apiDocu-description {
+	background-color: #fff;
+	padding: 1em;
+	font-size: 13px;
+	tab-size: 4;
+}
+
 .apiDocu-description small {
 	font-size: 14px;
 	color: #7f8c8d;
 }
 
-.apiDoc-parameters-column-content {
+.apiDocu-parameters-column-content {
 	background-color: #1abc9c;
 	padding: 1em;
 	color: #fff;
 }
 
-.apiDoc-parameters > .apiDoc-parameters-column:first-child {
+.apiDocu-parameters > .apiDocu-parameters-column:first-child {
 	margin-right: 0.5em;
 }
 
-.apiDoc-parameters > .apiDoc-parameters-column:last-child {
+.apiDocu-parameters > .apiDocu-parameters-column:last-child {
 	margin-left: 0.5em;
 }
 
@@ -222,13 +229,13 @@ h2 {
 	font-size: 120%;
 }
 
-.apiDoc-parameters-list {
+.apiDocu-parameters-list {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.apiDoc-parameters-list-name {
+.apiDocu-parameters-list-name {
 	font-weight: bold;
 }
 
@@ -238,7 +245,7 @@ h2 {
 	padding: 0;
 }
 
-.apiDoc-parameters .apiDoc-table-with-values th {
+.apiDocu-parameters .apiDocu-table-with-values th {
 	width: 40%;
 }
 

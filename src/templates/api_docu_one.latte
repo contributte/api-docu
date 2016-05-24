@@ -27,7 +27,7 @@
 		{if $route->getDescription()}
 			<h2>Description</h2>
 
-			<pre class="apiDocu-description apiDocu-description-main">{$route->getDescription()|nl2br|noescape}</pre>
+			<div class="apiDocu-description apiDocu-description-main">{$route->getDescription()|description|noescape}</div>
 		{/if}
 
 		{if $route->getFormat()}

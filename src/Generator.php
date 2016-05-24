@@ -167,6 +167,9 @@ class Generator extends Nette\Object
 	public function createTemplate($which)
 	{
 		$template = $this->templateFactory->createTemplate();
+
+		$template->addFilter(NULL, 'Ublaboo\ApiDocu\TemplateFilters::common');
+
 		$template->setFile(__DIR__ . '/templates/' . $which);
 
 		if ($template instanceof Nette\Application\UI\ITemplate) {

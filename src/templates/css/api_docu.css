@@ -186,11 +186,10 @@ pre.apiDocu-parameters-box {
 	vertical-align: top;
 }
 
-pre.apiDocu-description {
+.apiDocu-description {
 	background-color: #fff;
 	padding: 1em;
-	font-size: 13px;
-	tab-size: 4;
+	line-height: 1.2em;
 }
 
 .apiDocu-description small {
@@ -311,4 +310,24 @@ pre.tracy-dump div div {
 
 .tracy-dump-indent {
 	display: none;
+}
+
+pre.apiDocu-json {
+	margin: 0.5em 0;
+	padding: 0.5em;
+	border: 1px solid #E1E1E1;
+	border-radius: 1px;
+	background-color: #F5F5F5;
+	font-size: 13px;
+	tab-size: 4;
+	box-sizing: border-box;
+}
+
+.apiDocu-string {
+	color: #E06A0A;
+	font-weight: bold;
+}
+
+.apiDocu-comment {
+	color: #939393;
 }

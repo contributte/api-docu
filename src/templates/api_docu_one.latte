@@ -1,10 +1,10 @@
+{extends 'api_docu_base.latte'}
+
 {**
  * @param $route Ublaboo\ApiRouter\ApiRoute
  *}
 
 {var $parameters = $route->getParameters()}
-
-{extends 'api_docu_base.latte'}
 
 {block title}{$route->getPath()}{/block}
 

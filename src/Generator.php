@@ -180,6 +180,18 @@ class Generator extends Nette\Object
 			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);
 		});
 
+		$template->addFilter('apiDocuResponseCode', function($code) {
+			if ($code >= 200 && $code <= 202) {
+				return "<span class=\"apiDocu-code-success\">{$code}</span>";
+			} else if ($code >= 300 && $code < 500) {
+				return "<span class=\"apiDocu-code-warning\">{$code}</span>";
+			} else if ($code >= 500) {
+				return "<span class=\"apiDocu-code-error\">{$code}</span>";
+			}
+
+			return "<span class=\"apiDocu-code-other\">{$code}</span>";
+		});
+
 		return $template;
 	}
 

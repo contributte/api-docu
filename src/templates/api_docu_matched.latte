@@ -80,10 +80,10 @@
 			<p class="apiDocu-description">
 				{foreach $route->getResponseCodes() as $code => $description}
 					{if is_string($description)}
-						{$code} <small>({$description})</small>
+						{$code|apiDocuResponseCode|noescape} <small>({$description})</small>
 						<br>
 					{else}
-						{$description}
+						{$code|apiDocuResponseCode|noescape}
 						<br>
 					{/if}
 				{/foreach}

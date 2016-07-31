@@ -331,3 +331,15 @@ pre.apiDocu-json {
 .apiDocu-comment {
 	color: #939393;
 }
+
+.apiDocu-code-success {
+	color: #1abc9c;
+}
+
+.apiDocu-code-warning {
+	color: #e67e22;
+}
+
+.apiDocu-code-error {
+	color: #e74c3c;
+}

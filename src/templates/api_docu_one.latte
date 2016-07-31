@@ -61,6 +61,22 @@
 			</table>
 		</div>
 
+		{if !empty($route->getResponseCodes())}
+			<h2>Response codes</h2>
+
+			<p class="apiDocu-description">
+				{foreach $route->getResponseCodes() as $code => $description}
+					{if is_string($description)}
+						{$code} <small>({$description})</small>
+						<br>
+					{else}
+						{$description}
+						<br>
+					{/if}
+				{/foreach}
+			</p>
+		{/if}
+
 		{if $route->getExample()}
 			<h2>Example response</h2>
 			<pre class="apiDocu-parameters-box">{json_encode($route->getExample(), JSON_PRETTY_PRINT)}</pre>

@@ -74,6 +74,22 @@
 			</table>
 		</div>
 
+		{if !empty($route->getResponseCodes())}
+			<h2>Response codes</h2>
+
+			<p class="apiDocu-description">
+				{foreach $route->getResponseCodes() as $code => $description}
+					{if is_string($description)}
+						{$code} <small>({$description})</small>
+						<br>
+					{else}
+						{$description}
+						<br>
+					{/if}
+				{/foreach}
+			</p>
+		{/if}
+
 		<div class="apiDocu-parameters" n:if="$query_parameters">
 			<h2>Query parameters</h2>
 

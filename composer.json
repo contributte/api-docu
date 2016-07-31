@@ -29,7 +29,7 @@
 		"nette/application"  : "^2.3|^2.4",
 		"nette/di"           : "^2.3|^2.4",
 		"latte/latte"        : "^2.3|^2.4",
-		"ublaboo/api-router" : "~1.2"
+		"ublaboo/api-router" : ">=1.2.5"
 	},
 	"require-dev": {
 		"nette/tester"    : "~1.6.1",

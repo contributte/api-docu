@@ -28,7 +28,7 @@
 </div>
 
 {define route}
-	<a href="{ifset $section_name}{$section_name}.{/}{$file_name}.html" class="apiDocu-url">
+	<a href="{ifset $section_name}{$section_name}.{/}{$file_name}.php" class="apiDocu-url">
 		{$route->getPath()|routeMaskStyles|noescape}
 
 		<div class="apiDocu-url-method">{$route->getMethods()|implode:', '}</div>

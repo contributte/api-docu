@@ -32,18 +32,26 @@ class Generator extends Nette\Object
 	 */
 	private $api_dir;
 
+	/**
+	 * @var array
+	 */
+	private $httpAuth;
+
 
 	/**
 	 * @param string                                $api_dir
+	 * @param array                                 $httpAuth
 	 * @param Nette\Application\UI\ITemplateFactory $templateFactory
 	 * @param Nette\Http\Request                    $httpRequest
 	 */
 	public function __construct(
 		$api_dir,
+		array $httpAuth,
 		Nette\Application\UI\ITemplateFactory $templateFactory,
 		Nette\Http\Request $httpRequest
 	) {
 		$this->api_dir = $api_dir;
+		$this->httpAuth = $httpAuth;
 		$this->templateFactory = $templateFactory;
 		$this->httpRequest = $httpRequest;
 	}
@@ -62,12 +70,12 @@ class Generator extends Nette\Object
 		}
 
 		/**
-		 * Create index.html
+		 * Create index.php
 		 */
 		$this->generateIndex($sections);
 
 		/**
-		 * Create *.html for each defined ApiRoute
+		 * Create *.php for each defined ApiRoute
 		 */
 		foreach ($sections as $section_name => $routes) {
 			if (is_array($routes)) {
@@ -121,7 +129,10 @@ class Generator extends Nette\Object
 			'sections'    => $sections
 		]);
 
-		file_put_contents("{$this->api_dir}/{$file_name}.html", (string) $template);
+		file_put_contents(
+			"{$this->api_dir}/{$file_name}.php",
+			$this->getHttpAuthSnippet() . $template
+		);
 	}
 
 
@@ -137,7 +148,10 @@ class Generator extends Nette\Object
 			'sections' => $sections
 		]);
 
-		file_put_contents("{$this->api_dir}/index.html", (string) $template);
+		file_put_contents(
+			"{$this->api_dir}/index.php",
+			$this->getHttpAuthSnippet() . $template
+		);
 	}
 
 
@@ -251,6 +265,26 @@ class Generator extends Nette\Object
 		}
 
 		return $return;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	private function getHttpAuthSnippet()
+	{
+		if (!$this->httpAuth['user'] || !$this->httpAuth['password']) {
+			return '';
+		}
+
+		$u = $this->httpAuth['user'];
+		$p = $this->httpAuth['password'];
+
+		return "<?php if (!isset(\$_SERVER['PHP_AUTH_USER']) || \$_SERVER['PHP_AUTH_USER'] !== '{$u}' || \$_SERVER['PHP_AUTH_PW'] !== '{$p}') {"
+			. "	header('WWW-Authenticate: Basic realm=\"Api\"');"
+			. "	header('HTTP/1.0 401 Unauthorized');"
+			. "	die('Invalid authentication');"
+			. "} ?>";
 	}
 
 }

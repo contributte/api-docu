@@ -14,7 +14,11 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 {
 
 	private $defaults = [
-		'apiDir' => '%wwwDir%/api'
+		'apiDir' => '%wwwDir%/api',
+		'httpAuth' => [
+			'user' => NULL,
+			'password' => NULL
+		]
 	];
 
 	/**
@@ -42,7 +46,7 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 
 		$builder->addDefinition($this->prefix('generator'))
 			->setClass('Ublaboo\ApiDocu\Generator')
-			->setArguments([$config['apiDir']]);
+			->setArguments([$config['apiDir'], $config['httpAuth']]);
 
 		$builder->addDefinition($this->prefix('starter'))
 			->setClass('Ublaboo\ApiDocu\Starter')

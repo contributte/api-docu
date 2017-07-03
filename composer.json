@@ -3,7 +3,7 @@
 	"type": "library",
 	"description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
 	"keywords": ["rest", "api", "documentation", "docu", "apidocu", "routes", "nette"],
-	"homepage": "http://ublaboo.paveljanda.com/api-docu",
+	"homepage": "https://ublaboo.org/api-docu",
 	"license": ["MIT"],
 	"support": {
 		"issues": "https://github.com/ublaboo/api-docu/issues"

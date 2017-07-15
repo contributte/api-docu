@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
  * @author      Pavel Janda <me@paveljanda.com>
@@ -11,15 +13,14 @@ namespace Ublaboo\ApiDocu;
 use Nette;
 use Nette\Application\IRouter;
 use Nette\Application\Request;
+use Nette\Application\Routers\RouteList;
 use Nette\Http;
 use Ublaboo\ApiRouter\ApiRoute;
-use Nette\Application\Routers\RouteList;
 
 class Starter extends Nette\Object
 {
-
-	const API_DOCU_STARTER_QUERY_KEY_TARGET   = '__apiDocu';
-	const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
+	public const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';
+	public const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
 
 	/**
 	 * @var Generator
@@ -74,13 +75,13 @@ class Starter extends Nette\Object
 	 */
 	public function routeMatched(ApiRoute $route, Request $request)
 	{
-		if (NULL !== ($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE))) {
+		if (($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE)) !== null) {
 			$this->generator->generateAll($this->router);
 
 			exit(0);
 		}
 
-		if (NULL !== ($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_TARGET))) {
+		if (($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_TARGET)) !== null) {
 			$this->generator->generateTarget($route, $request);
 
 			exit(0);
@@ -100,5 +101,4 @@ class Starter extends Nette\Object
 			}
 		}
 	}
-
 }

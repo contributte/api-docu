@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
  * @author      Pavel Janda <me@paveljanda.com>
@@ -13,18 +15,18 @@ use Nette;
 class ApiDocuExtension extends Nette\DI\CompilerExtension
 {
 
-	private $defaults = [
-		'apiDir' => '%wwwDir%/api',
-		'httpAuth' => [
-			'user' => NULL,
-			'password' => NULL
-		]
-	];
-
 	/**
 	 * @var array
 	 */
 	protected $config;
+
+	private $defaults = [
+		'apiDir' => '%wwwDir%/api',
+		'httpAuth' => [
+			'user' => null,
+			'password' => null,
+		],
+	];
 
 
 	/**
@@ -52,7 +54,7 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 			->setClass('Ublaboo\ApiDocu\Starter')
 			->setArguments([
 				$builder->getDefinition($this->prefix('generator')),
-				$builder->getDefinition('router')
+				$builder->getDefinition('router'),
 			])->addTag('run');
 	}
 
@@ -71,5 +73,4 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 
 		return $config;
 	}
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
  * @author      Pavel Janda <me@paveljanda.com>
@@ -10,7 +12,6 @@ namespace Ublaboo\ApiDocu;
 
 class TemplateFilters
 {
-
 	public static function common($filter, $value)
 	{
 		if (method_exists(__CLASS__, $filter)) {
@@ -20,13 +21,14 @@ class TemplateFilters
 		}
 	}
 
+
 	public static function description($text)
 	{
 		$text = nl2br($text);
 		$text = str_replace(["\n", "\n\r", "\r\n", "\r"], '', $text);
 
-		$text = preg_replace_callback('/<json><br \/>(.*?)<\/json>/s', function($item) {
-			$s = '<br><pre class="apiDocu-json">' . str_replace("<br>", '', end($item)) . '</pre>';
+		$text = preg_replace_callback('/<json><br \/>(.*?)<\/json>/s', function ($item) {
+			$s = '<br><pre class="apiDocu-json">' . str_replace('<br>', '', end($item)) . '</pre>';
 			$s = preg_replace('/(\s)"([^"]+)"/', '$1<span class="apiDocu-string">"$2"</span>', $s);
 			$s = preg_replace('/\/\/(.*?)<br \/>/', '<span class="apiDocu-comment">//$1</span><br>', $s);
 
@@ -37,5 +39,4 @@ class TemplateFilters
 
 		return $text;
 	}
-
 }

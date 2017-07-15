@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
  * @author      Pavel Janda <me@paveljanda.com>
@@ -9,10 +11,10 @@
 namespace Ublaboo\ApiDocu;
 
 use Nette;
-use Nette\Application\Request;
 use Nette\Application\IRouter;
-use Ublaboo\ApiRouter\ApiRoute;
+use Nette\Application\Request;
 use Tracy\Debugger;
+use Ublaboo\ApiRouter\ApiRoute;
 
 class Generator extends Nette\Object
 {
@@ -101,13 +103,13 @@ class Generator extends Nette\Object
 		$template = $this->createTemplate('api_docu_matched.latte');
 
 		$template->setParameters([
-			'route'       => $route,
-			'request'     => $request,
-			'httpRequest' => $this->httpRequest
+			'route' => $route,
+			'request' => $request,
+			'httpRequest' => $this->httpRequest,
 		]);
 
 		if (class_exists('Tracy\Debugger')) {
-			Debugger::$productionMode = TRUE;
+			Debugger::$productionMode = true;
 		}
 
 		echo (string) $template;
@@ -125,8 +127,8 @@ class Generator extends Nette\Object
 		$template = $this->createTemplate('api_docu_one.latte');
 
 		$template->setParameters([
-			'route'       => $route,
-			'sections'    => $sections
+			'route' => $route,
+			'sections' => $sections,
 		]);
 
 		file_put_contents(
@@ -145,7 +147,7 @@ class Generator extends Nette\Object
 		$template = $this->createTemplate('api_docu_index.latte');
 
 		$template->setParameters([
-			'sections' => $sections
+			'sections' => $sections,
 		]);
 
 		file_put_contents(
@@ -163,11 +165,11 @@ class Generator extends Nette\Object
 		$template = $this->createTemplate('api_docu_success.latte');
 
 		$template->setParameters([
-			'apiDir' => $this->api_dir
+			'apiDir' => $this->api_dir,
 		]);
 
 		if (class_exists('Tracy\Debugger')) {
-			Debugger::$productionMode = TRUE;
+			Debugger::$productionMode = true;
 		}
 
 		echo (string) $template;
@@ -182,7 +184,7 @@ class Generator extends Nette\Object
 	{
 		$template = $this->templateFactory->createTemplate();
 
-		$template->addFilter(NULL, 'Ublaboo\ApiDocu\TemplateFilters::common');
+		$template->addFilter(null, 'Ublaboo\ApiDocu\TemplateFilters::common');
 
 		$template->setFile(__DIR__ . '/templates/' . $which);
 
@@ -190,16 +192,16 @@ class Generator extends Nette\Object
 			$template->base_dir = __DIR__ . '/templates';
 		}
 
-		$template->addFilter('routeMaskStyles', function($mask) {
+		$template->addFilter('routeMaskStyles', function ($mask) {
 			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);
 		});
 
-		$template->addFilter('apiDocuResponseCode', function($code) {
+		$template->addFilter('apiDocuResponseCode', function ($code) {
 			if ($code >= 200 && $code <= 202) {
 				return "<span class=\"apiDocu-code-success\">{$code}</span>";
-			} else if ($code >= 300 && $code < 500) {
+			} elseif ($code >= 300 && $code < 500) {
 				return "<span class=\"apiDocu-code-warning\">{$code}</span>";
-			} else if ($code >= 500) {
+			} elseif ($code >= 500) {
 				return "<span class=\"apiDocu-code-error\">{$code}</span>";
 			}
 
@@ -223,7 +225,7 @@ class Generator extends Nette\Object
 
 		if ($router instanceof ApiRoute) {
 			$routes = [$router];
-		} else if ($router instanceof \IteratorAggregate) {
+		} elseif ($router instanceof \IteratorAggregate) {
 			$routes = $this->getApiRoutesFromIterator($router);
 		}
 
@@ -255,7 +257,7 @@ class Generator extends Nette\Object
 		foreach ($i as $router) {
 			if ($router instanceof ApiRoute) {
 				$return[] = $router;
-			} else if ($router instanceof \IteratorAggregate) {
+			} elseif ($router instanceof \IteratorAggregate) {
 				$routes = $this->getApiRoutesFromIterator($router);
 
 				foreach ($routes as $route) {
@@ -284,7 +286,6 @@ class Generator extends Nette\Object
 			. "	header('WWW-Authenticate: Basic realm=\"Api\"');"
 			. "	header('HTTP/1.0 401 Unauthorized');"
 			. "	die('Invalid authentication');"
-			. "} ?>";
+			. '} ?>';
 	}
-
 }

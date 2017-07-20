@@ -12,7 +12,7 @@ namespace Ublaboo\ApiDocu;
 
 class TemplateFilters
 {
-	public static function common($filter, $value)
+	public static function common(string $filter): ?string
 	{
 		if (method_exists(__CLASS__, $filter)) {
 			$args = func_get_args();
@@ -22,7 +22,7 @@ class TemplateFilters
 	}
 
 
-	public static function description($text)
+	public static function description(string $text): string
 	{
 		$text = nl2br($text);
 		$text = str_replace(["\n", "\n\r", "\r\n", "\r"], '', $text);
@@ -37,6 +37,6 @@ class TemplateFilters
 
 		$text = preg_replace('/\*\*([^*]*)\*\*/', '<strong>$1</strong>', $text);
 
-		return $text;
+		return (string) $text;
 	}
 }

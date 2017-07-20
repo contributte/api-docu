@@ -10,29 +10,31 @@ declare(strict_types=1);
 
 namespace Ublaboo\ApiDocu;
 
-use Nette;
 use Nette\Application\IRouter;
 use Nette\Application\Request;
+use Nette\Application\UI\ITemplate;
+use Nette\Application\UI\ITemplateFactory;
+use Nette\Http;
 use Tracy\Debugger;
 use Ublaboo\ApiRouter\ApiRoute;
 
-class Generator extends Nette\Object
+class Generator
 {
 
 	/**
-	 * @var Nette\Application\UI\ITemplateFactory
+	 * @var ITemplateFactory
 	 */
 	private $templateFactory;
 
 	/**
-	 * @var Nette\Http\Request
+	 * @var Http\Request
 	 */
 	private $httpRequest;
 
 	/**
 	 * @var string
 	 */
-	private $api_dir;
+	private $appDir;
 
 	/**
 	 * @var array
@@ -40,35 +42,25 @@ class Generator extends Nette\Object
 	private $httpAuth;
 
 
-	/**
-	 * @param string                                $api_dir
-	 * @param array                                 $httpAuth
-	 * @param Nette\Application\UI\ITemplateFactory $templateFactory
-	 * @param Nette\Http\Request                    $httpRequest
-	 */
 	public function __construct(
-		$api_dir,
+		string $appDir,
 		array $httpAuth,
-		Nette\Application\UI\ITemplateFactory $templateFactory,
-		Nette\Http\Request $httpRequest
+		ITemplateFactory $templateFactory,
+		Http\Request $httpRequest
 	) {
-		$this->api_dir = $api_dir;
+		$this->appDir = $appDir;
 		$this->httpAuth = $httpAuth;
 		$this->templateFactory = $templateFactory;
 		$this->httpRequest = $httpRequest;
 	}
 
 
-	/**
-	 * @param  IRouter $router
-	 * @return void
-	 */
-	public function generateAll(IRouter $router)
+	public function generateAll(IRouter $router): void
 	{
 		$sections = $this->splitRoutesIntoSections($router);
 
-		if (!file_exists($this->api_dir) && !is_dir($this->api_dir)) {
-			mkdir($this->api_dir);
+		if (!file_exists($this->appDir) && !is_dir($this->appDir)) {
+			mkdir($this->appDir);
 		}
 
 		/**
@@ -79,13 +71,13 @@ class Generator extends Nette\Object
 		/**
 		 * Create *.php for each defined ApiRoute
 		 */
-		foreach ($sections as $section_name => $routes) {
+		foreach ($sections as $sectionName => $routes) {
 			if (is_array($routes)) {
-				foreach ($routes as $file_name => $route) {
-					$this->generateOne($route, $sections, "$section_name.$file_name");
+				foreach ($routes as $fileName => $route) {
+					$this->generateOne($route, $sections, "$sectionName.$fileName");
 				}
 			} else {
-				$this->generateOne($routes, $sections, $section_name);
+				$this->generateOne($routes, $sections, $sectionName);
 			}
 		}
 
@@ -93,12 +85,7 @@ class Generator extends Nette\Object
 	}
 
 
-	/**
-	 * @param  ApiRoute $route
-	 * @param  Request  $request
-	 * @return void
-	 */
-	public function generateTarget(ApiRoute $route, Request $request)
+	public function generateTarget(ApiRoute $route, Request $request): void
 	{
 		$template = $this->createTemplate('api_docu_matched.latte');
 
@@ -116,13 +103,7 @@ class Generator extends Nette\Object
 	}
 
 
-	/**
-	 * @param  ApiRoute $route
-	 * @param  array    $sections
-	 * @param  string   $file_name
-	 * @return void
-	 */
-	public function generateOne(ApiRoute $route, $sections, $file_name)
+	public function generateOne(ApiRoute $route, array $sections, string $fileName): void
 	{
 		$template = $this->createTemplate('api_docu_one.latte');
 
@@ -132,17 +113,13 @@ class Generator extends Nette\Object
 		]);
 
 		file_put_contents(
-			"{$this->api_dir}/{$file_name}.php",
+			"{$this->appDir}/{$fileName}.php",
 			$this->getHttpAuthSnippet() . $template
 		);
 	}
 
 
-	/**
-	 * @param  array $sections
-	 * @return void
-	 */
-	public function generateIndex($sections)
+	public function generateIndex(array $sections): void
 	{
 		$template = $this->createTemplate('api_docu_index.latte');
 
@@ -151,21 +128,18 @@ class Generator extends Nette\Object
 		]);
 
 		file_put_contents(
-			"{$this->api_dir}/index.php",
+			"{$this->appDir}/index.php",
 			$this->getHttpAuthSnippet() . $template
 		);
 	}
 
 
-	/**
-	 * @return void
-	 */
-	public function generateSuccess()
+	public function generateSuccess(): void
 	{
 		$template = $this->createTemplate('api_docu_success.latte');
 
 		$template->setParameters([
-			'apiDir' => $this->api_dir,
+			'apiDir' => $this->appDir,
 		]);
 
 		if (class_exists('Tracy\Debugger')) {
@@ -176,11 +150,7 @@ class Generator extends Nette\Object
 	}
 
 
-	/**
-	 * @param  string
-	 * @return Nette\Application\UI\ITemplate
-	 */
-	public function createTemplate($which)
+	public function createTemplate(string $which): ITemplate
 	{
 		$template = $this->templateFactory->createTemplate();
 
@@ -188,7 +158,7 @@ class Generator extends Nette\Object
 
 		$template->setFile(__DIR__ . '/templates/' . $which);
 
-		if ($template instanceof Nette\Application\UI\ITemplate) {
+		if ($template instanceof ITemplate) {
 			$template->base_dir = __DIR__ . '/templates';
 		}
 
@@ -217,11 +187,11 @@ class Generator extends Nette\Object
 	 ********************************************************************************/
 
 
-	private function splitRoutesIntoSections(IRouter $router)
+	private function splitRoutesIntoSections(IRouter $router): array
 	{
 		$routes = [];
 		$sections = [];
-		$file_name = 1;
+		$fileName = 1;
 
 		if ($router instanceof ApiRoute) {
 			$routes = [$router];
@@ -235,9 +205,9 @@ class Generator extends Nette\Object
 					$sections[$route->getSection()] = [];
 				}
 
-				$sections[$route->getSection()][$file_name++] = $route;
+				$sections[$route->getSection()][$fileName++] = $route;
 			} else {
-				$sections[$file_name++] = $route;
+				$sections[$fileName++] = $route;
 			}
 		}
 
@@ -247,10 +217,8 @@ class Generator extends Nette\Object
 
 	/**
 	 * Recursively flatten \IteratorAggregate (probably Nette\Application\Routers\RouteList)
-	 * @param  \IteratorAggregate $i
-	 * @return array
 	 */
-	private function getApiRoutesFromIterator(\IteratorAggregate $i)
+	private function getApiRoutesFromIterator(\IteratorAggregate $i): array
 	{
 		$return = [];
 
@@ -270,10 +238,7 @@ class Generator extends Nette\Object
 	}
 
 
-	/**
-	 * @return string
-	 */
-	private function getHttpAuthSnippet()
+	private function getHttpAuthSnippet(): string
 	{
 		if (!$this->httpAuth['user'] || !$this->httpAuth['password']) {
 			return '';

@@ -10,14 +10,13 @@ declare(strict_types=1);
 
 namespace Ublaboo\ApiDocu;
 
-use Nette;
 use Nette\Application\IRouter;
 use Nette\Application\Request;
 use Nette\Application\Routers\RouteList;
 use Nette\Http;
 use Ublaboo\ApiRouter\ApiRoute;
 
-class Starter extends Nette\Object
+class Starter
 {
 	public const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';
 	public const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
@@ -69,11 +68,8 @@ class Starter extends Nette\Object
 
 	/**
 	 * Event thatis firex when particular ApiRoute is matched
-	 * @param  ApiRoute $route
-	 * @param  Request  $request
-	 * @return void
 	 */
-	public function routeMatched(ApiRoute $route, Request $request)
+	public function routeMatched(ApiRoute $route, Request $request): void
 	{
 		if (($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE)) !== null) {
 			$this->generator->generateAll($this->router);
@@ -91,9 +87,8 @@ class Starter extends Nette\Object
 
 	/**
 	 * Find ApiRoutes and add listener to each ApiRoute::onMatch event
-	 * @return void
 	 */
-	protected function attachEvents()
+	protected function attachEvents(): void
 	{
 		foreach ($this->router as $route) {
 			if ($route instanceof ApiRoute) {

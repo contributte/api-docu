@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace Ublaboo\ApiDocu\DI;
 
-use Nette;
+use Nette\DI\CompilerExtension;
+use Nette\DI\Helpers;
+use Ublaboo\ApiDocu\Generator;
+use Ublaboo\ApiDocu\Starter;
 
-class ApiDocuExtension extends Nette\DI\CompilerExtension
+class ApiDocuExtension extends CompilerExtension
 {
 
 	/**
@@ -20,6 +23,9 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	 */
 	protected $config;
 
+	/**
+	 * @var array
+	 */
 	private $defaults = [
 		'apiDir' => '%wwwDir%/api',
 		'httpAuth' => [
@@ -29,29 +35,23 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	];
 
 
-	/**
-	 * @return void
-	 */
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$this->config = $this->_getConfig();
 	}
 
 
-	/**
-	 * @return void
-	 */
-	public function beforeCompile()
+	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->config;
 
 		$builder->addDefinition($this->prefix('generator'))
-			->setClass('Ublaboo\ApiDocu\Generator')
+			->setClass(Generator::class)
 			->setArguments([$config['apiDir'], $config['httpAuth']]);
 
 		$builder->addDefinition($this->prefix('starter'))
-			->setClass('Ublaboo\ApiDocu\Starter')
+			->setClass(Starter::class)
 			->setArguments([
 				$builder->getDefinition($this->prefix('generator')),
 				$builder->getDefinition('router'),
@@ -59,14 +59,11 @@ class ApiDocuExtension extends Nette\DI\CompilerExtension
 	}
 
 
-	/**
-	 * @return array
-	 */
-	protected function _getConfig()
+	protected function _getConfig(): array
 	{
 		$config = $this->validateConfig($this->defaults, $this->config);
 
-		$config['apiDir'] = Nette\DI\Helpers::expand(
+		$config['apiDir'] = Helpers::expand(
 			$config['apiDir'],
 			$this->getContainerBuilder()->parameters
 		);

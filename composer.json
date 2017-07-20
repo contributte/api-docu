@@ -25,12 +25,12 @@
 		}
 	},
 	"require": {
-		"php": "<= 7.0",
+		"php": "<= 7.1",
 		"nette/http": "^2.3|^2.4",
 		"nette/application": "^2.3|^2.4",
 		"nette/di": "^2.3|^2.4",
 		"latte/latte": "^2.3|^2.4",
-		"ublaboo/api-router": ">=1.2.5"
+		"ublaboo/api-router": "~2.0.0"
 	},
 	"require-dev": {
 		"nette/tester": "~1.6.1",

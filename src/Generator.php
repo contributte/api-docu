@@ -77,7 +77,7 @@ class Generator
 					$this->generateOne($route, $sections, "$sectionName.$fileName");
 				}
 			} else {
-				$this->generateOne($routes, $sections, $sectionName);
+				$this->generateOne($routes, $sections, (string) $sectionName);
 			}
 		}
 

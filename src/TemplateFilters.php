@@ -17,7 +17,14 @@ class TemplateFilters
 		if (method_exists(__CLASS__, $filter)) {
 			$args = func_get_args();
 			array_shift($args);
-			return call_user_func_array([__CLASS__, $filter], $args);
+
+			$callback = [__CLASS__, $filter];
+
+			if (!is_callable($callback)) {
+				throw new \UnexpectedValueException;
+			}
+
+			return ($callback)($args);
 		}
 	}
 
@@ -29,13 +36,13 @@ class TemplateFilters
 
 		$text = preg_replace_callback('/<json><br \/>(.*?)<\/json>/s', function ($item) {
 			$s = '<br><pre class="apiDocu-json">' . str_replace('<br>', '', end($item)) . '</pre>';
-			$s = preg_replace('/(\s)"([^"]+)"/', '$1<span class="apiDocu-string">"$2"</span>', $s);
-			$s = preg_replace('/\/\/(.*?)<br \/>/', '<span class="apiDocu-comment">//$1</span><br>', $s);
+			$s = (string) preg_replace('/(\s)"([^"]+)"/', '$1<span class="apiDocu-string">"$2"</span>', $s);
+			$s = (string) preg_replace('/\/\/(.*?)<br \/>/', '<span class="apiDocu-comment">//$1</span><br>', $s);
 
 			return $s;
 		}, $text);
 
-		$text = preg_replace('/\*\*([^*]*)\*\*/', '<strong>$1</strong>', $text);
+		$text = preg_replace('/\*\*([^*]*)\*\*/', '<strong>$1</strong>', (string) $text);
 
 		return (string) $text;
 	}

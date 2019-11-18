@@ -13,13 +13,18 @@ namespace Ublaboo\ApiDocu;
 use Nette\Application\IRouter;
 use Nette\Application\Request;
 use Nette\Application\Routers\RouteList;
-use Nette\Http;
 use Ublaboo\ApiRouter\ApiRoute;
 
 class Starter
 {
+
 	public const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';
 	public const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
+
+	/**
+	 * @var callable[]
+	 */
+	public $onMatch;
 
 	/**
 	 * @var Generator
@@ -31,37 +36,16 @@ class Starter
 	 */
 	private $router;
 
-	/**
-	 * @var Http\Response
-	 */
-	private $response;
 
-	/**
-	 * @var Http\Request
-	 */
-	private $httpRequest;
-
-
-	/**
-	 * @param Generator     $generator
-	 * @param IRouter       $router
-	 * @param Http\Response $response
-	 * @param Http\Request  $httpRequest
-	 */
 	public function __construct(
 		Generator $generator,
-		IRouter $router,
-		Http\Response $response,
-		Http\Request $httpRequest
+		IRouter $router
 	) {
 		$this->generator = $generator;
 		$this->router = $router;
 
-		$this->response = $response;
-		$this->httpRequest = $httpRequest;
-
 		if ($router instanceof RouteList) {
-			$this->attachEvents();
+			$this->attachEvents($router);
 		}
 	}
 
@@ -71,13 +55,17 @@ class Starter
 	 */
 	public function routeMatched(ApiRoute $route, Request $request): void
 	{
-		if (($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE)) !== null) {
+		$format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE);
+
+		if ($format !== null) {
 			$this->generator->generateAll($this->router);
 
 			exit(0);
 		}
 
-		if (($format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_TARGET)) !== null) {
+		$format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_TARGET);
+
+		if ($format !== null) {
 			$this->generator->generateTarget($route, $request);
 
 			exit(0);
@@ -88,9 +76,9 @@ class Starter
 	/**
 	 * Find ApiRoutes and add listener to each ApiRoute::onMatch event
 	 */
-	protected function attachEvents(): void
+	protected function attachEvents(RouteList $routeList): void
 	{
-		foreach ($this->router as $route) {
+		foreach ($routeList as $route) {
 			if ($route instanceof ApiRoute) {
 				$route->onMatch[] = [$this, 'routeMatched'];
 			}

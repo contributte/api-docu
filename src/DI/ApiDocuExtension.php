@@ -37,7 +37,7 @@ class ApiDocuExtension extends CompilerExtension
 
 	public function loadConfiguration(): void
 	{
-		$this->config = $this->_getConfig();
+		$this->config = $this->prepareConfig();
 	}
 
 
@@ -59,7 +59,7 @@ class ApiDocuExtension extends CompilerExtension
 	}
 
 
-	protected function _getConfig(): array
+	protected function prepareConfig(): array
 	{
 		$config = $this->validateConfig($this->defaults, $this->config);
 

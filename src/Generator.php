@@ -12,8 +12,8 @@ namespace Ublaboo\ApiDocu;
 
 use Nette\Application\IRouter;
 use Nette\Application\Request;
-use Nette\Application\UI\ITemplate;
 use Nette\Application\UI\ITemplateFactory;
+use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http;
 use Tracy\Debugger;
 use Ublaboo\ApiRouter\ApiRoute;
@@ -150,17 +150,19 @@ class Generator
 	}
 
 
-	public function createTemplate(string $which): ITemplate
+	public function createTemplate(string $which): Template
 	{
 		$template = $this->templateFactory->createTemplate();
+
+		if (!$template instanceof Template) {
+			throw new \UnexpectedValueException;
+		}
 
 		$template->addFilter(null, 'Ublaboo\ApiDocu\TemplateFilters::common');
 
 		$template->setFile(__DIR__ . '/templates/' . $which);
 
-		if ($template instanceof ITemplate) {
-			$template->base_dir = __DIR__ . '/templates';
-		}
+		$template->setParameters(['base_dir' => __DIR__ . '/templates']);
 
 		$template->addFilter('routeMaskStyles', function ($mask) {
 			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);
@@ -169,9 +171,13 @@ class Generator
 		$template->addFilter('apiDocuResponseCode', function ($code) {
 			if ($code >= 200 && $code <= 202) {
 				return "<span class=\"apiDocu-code-success\">{$code}</span>";
-			} elseif ($code >= 300 && $code < 500) {
+			}
+
+			if ($code >= 300 && $code < 500) {
 				return "<span class=\"apiDocu-code-warning\">{$code}</span>";
-			} elseif ($code >= 500) {
+			}
+
+			if ($code >= 500) {
 				return "<span class=\"apiDocu-code-error\">{$code}</span>";
 			}
 
@@ -201,14 +207,16 @@ class Generator
 
 		foreach ($routes as $route) {
 			if ($route->getSection()) {
-				if (empty($sections[$route->getSection()])) {
+				if ($sections[$route->getSection()] === []) {
 					$sections[$route->getSection()] = [];
 				}
 
-				$sections[$route->getSection()][$fileName++] = $route;
+				$sections[$route->getSection()][$fileName] = $route;
 			} else {
-				$sections[$fileName++] = $route;
+				$sections[$fileName] = $route;
 			}
+
+			$fileName++;
 		}
 
 		return $sections;
@@ -240,7 +248,10 @@ class Generator
 
 	private function getHttpAuthSnippet(): string
 	{
-		if (!$this->httpAuth['user'] || !$this->httpAuth['password']) {
+		$user = (string) $this->httpAuth['user'];
+		$password = (string) $this->httpAuth['password'];
+
+		if ($user === '' || $password === '') {
 			return '';
 		}
 

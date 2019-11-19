@@ -53,9 +53,9 @@ class Starter
 	/**
 	 * Event thatis firex when particular ApiRoute is matched
 	 */
-	public function routeMatched(ApiRoute $route, Request $request): void
+	public function routeMatched(ApiRoute $route, array $parameters): void
 	{
-		$format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_GENERATE);
+		$format = $parameters[self::API_DOCU_STARTER_QUERY_KEY_GENERATE] ?? null;
 
 		if ($format !== null) {
 			$this->generator->generateAll($this->router);
@@ -63,10 +63,10 @@ class Starter
 			exit(0);
 		}
 
-		$format = $request->getParameter(self::API_DOCU_STARTER_QUERY_KEY_TARGET);
+		$format = $parameters[self::API_DOCU_STARTER_QUERY_KEY_TARGET] ?? null;
 
 		if ($format !== null) {
-			$this->generator->generateTarget($route, $request);
+			$this->generator->generateTarget($route, $parameters);
 
 			exit(0);
 		}

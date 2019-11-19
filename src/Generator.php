@@ -85,13 +85,13 @@ class Generator
 	}
 
 
-	public function generateTarget(ApiRoute $route, Request $request): void
+	public function generateTarget(ApiRoute $route, array $parameters): void
 	{
 		$template = $this->createTemplate('api_docu_matched.latte');
 
 		$template->setParameters([
 			'route' => $route,
-			'request' => $request,
+			'requestParameters' => $parameters,
 			'httpRequest' => $this->httpRequest,
 		]);
 

@@ -2,17 +2,17 @@
 
 {**
  * @param $route Ublaboo\ApiRouter\ApiRoute
- * @param $request Nette\Application\Request
+ * @param $requestParameters array
  *}
 
 {var $parameters = $route->getParameters()}
 {var $query_parameters = []}
 
-{foreach $request->getParameters() as $name => $parameter}
+{foreach $requestParameters as $name => $parameter}
 	{continueIf in_array($name, $route->getPlacehodlerParameters())}
-	{continueIf $name == 'action'}
+	{continueIf in_array($name, ['action', 'presenter', 'method', 'post', 'files', 'secured'], true)}
 
-	{var $query_parameters[$name] = \Tracy\Debugger::dump($request->getParameter($name), TRUE)}
+	{var $query_parameters[$name] = \Tracy\Debugger::dump($parameter, TRUE)}
 {/foreach}
 
 {block title}{$route->getPath()}{/block}
@@ -66,7 +66,7 @@
 							</div>
 						</th>
 						<td>
-							{var $value = \Tracy\Debugger::dump($request->getParameter($parameter), TRUE)}
+							{var $value = \Tracy\Debugger::dump($requestParameters[$parameter] ?? null, TRUE)}
 							{$value|noescape}
 						</td>
 					</tr>

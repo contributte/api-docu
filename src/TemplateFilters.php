@@ -29,8 +29,9 @@ class TemplateFilters
 	}
 
 
-	public static function description(string $text): string
+	public static function description(array $text): string
 	{
+		$text = reset($text);
 		$text = nl2br($text);
 		$text = str_replace(["\n", "\n\r", "\r\n", "\r"], '', $text);
 

@@ -2,19 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
- * @author      Pavel Janda <me@paveljanda.com>
- * @package     Ublaboo
- */
-
-namespace Ublaboo\ApiDocu\DI;
+namespace Contributte\ApiDocu\DI;
 
 use Nette\DI\CompilerExtension;
 use Nette\DI\Helpers;
 use Nette\PhpGenerator\ClassType;
-use Ublaboo\ApiDocu\Generator;
-use Ublaboo\ApiDocu\Starter;
+use Contributte\ApiDocu\Generator;
+use Contributte\ApiDocu\Starter;
 
 class ApiDocuExtension extends CompilerExtension
 {

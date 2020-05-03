@@ -2,13 +2,7 @@
 
 declare(strict_types=1);
 
-/**
- * @copyright   Copyright (c) 2016 ublaboo <ublaboo@paveljanda.com>
- * @author      Pavel Janda <me@paveljanda.com>
- * @package     Ublaboo
- */
-
-namespace Ublaboo\ApiDocu;
+namespace Contributte\ApiDocu;
 
 class TemplateFilters
 {

@@ -1,12 +1,12 @@
 {
-	"name": "ublaboo/api-docu",
+	"name": "contributte/api-docu",
 	"type": "library",
 	"description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
 	"keywords": ["rest", "api", "documentation", "docu", "apidocu", "routes", "nette"],
-	"homepage": "https://ublaboo.org/api-docu",
+	"homepage": "https://github.com/contributte/api-docu",
 	"license": ["MIT"],
 	"support": {
-		"issues": "https://github.com/ublaboo/api-docu/issues"
+		"issues": "https://github.com/contributte/api-docu/issues"
 	},
 	"authors": [
 		{
@@ -16,12 +16,12 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Ublaboo\\ApiDocu\\": "src/"
+			"Contributte\\ApiDocu\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Ublaboo\\ApiDocu\\Tests\\": "tests"
+			"Contributte\\ApiDocu\\Tests\\": "tests"
 		}
 	},
 	"require": {
@@ -30,7 +30,7 @@
 		"nette/application": "^3.0",
 		"nette/di": "^3.0",
 		"latte/latte": "^2.6",
-		"ublaboo/api-router": "~3.0.0"
+		"contributte/api-router": "~4.0.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.2",

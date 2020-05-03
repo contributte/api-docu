@@ -137,6 +137,8 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 
 ## Generating API documentation
 
+![Docs](docs/assets/docs.png)
+
 ### `?__apiDocuGenerate`
 
 When you are directly on some api url, you can use query parameter `?__apiDocuGenerate` for generating whole application api documentation. All documentation files will be available in directory specified by you. By default, the directory is:

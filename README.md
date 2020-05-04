@@ -1,6 +1,6 @@
-# RabbitMQ
+# ApiDocu
 
-Ultra easy-to-use [`RabbitMQ`](https://www.rabbitmq.com/) implementation for [`Nette Framework`](https://github.com/nette/).
+ApiDocu can generate api documentation for routes created using [ApiRouter](https://github.com/contributte/api-router). It works either for directly defined routes or the ones defined via annotation.</p>
 
 [![Build Status](https://img.shields.io/travis/contributte/api-docu.svg?style=flat-square)](https://travis-ci.org/contributte/api-docu)
 [![Code coverage](https://img.shields.io/coveralls/contributte/api-docu.svg?style=flat-square)](https://coveralls.io/r/contributte/api-docu)

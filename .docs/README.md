@@ -7,7 +7,7 @@ ApiDocu can generate api documentation for routes created using [ApiRouter](http
 ApiDocu is available through composer package `contributte/api-docu`:
 
 ```
-composer require contributte/api-docu
+$ composer require contributte/api-docu
 ```
 
 ## Usage - runtime documentation

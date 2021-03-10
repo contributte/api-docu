@@ -68,8 +68,8 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 	 * 	"parents": {{
 	 * 		"name": "John",
 	 * 		"surname": "Doe",
-	 *     	"age": 53,
-	 * 	    "hairCount": 456
+	 *	 	"age": 53,
+	 * 		"hairCount": 456
 	 * 	}}
 	 * }
 	 * </json>
@@ -93,9 +93,9 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 	 * 		"hairCount": 123456,
 	 * 		"parents": {{
 	 * 			"name": "John",
-	 *    		"surname": "Doe",
-	 * 	    	"age": 53,
-	 * 		    "hairCount": 456
+	 *			"surname": "Doe",
+	 * 			"age": 53,
+	 * 			"hairCount": 456
 	 * 		}}
 	 * 	},
 	 * 	tags={

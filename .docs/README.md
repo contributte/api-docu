@@ -137,14 +137,14 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 
 When you are directly on some api url, you can use query parameter `?__apiDocuGenerate` for generating whole application api documentation. All documentation files will be available in directory specified by you. By default, the directory is:
 
-```yaml
+```neon
 apiDocu:
-    apiDir: "%wwwDir%/api"
+	apiDir: "%wwwDir%/api"
 
 
 extensions:
-    apiRouter: Contributte\ApiRouter\DI\ApiRouterExtension
-    apiDocu: Contributte\ApiDocu\DI\ApiDocuExtension
+	apiRouter: Contributte\ApiRouter\DI\ApiRouterExtension
+	apiDocu: Contributte\ApiDocu\DI\ApiDocuExtension
 ```
 
 Example api generation trigger is here: `/api-router/api/books?__apiDocuGenerate`.
@@ -153,10 +153,10 @@ Example api generation trigger is here: `/api-router/api/books?__apiDocuGenerate
 
 You can use a HTTP authorization on your documentation sites:
 
-```yaml
+```neon
 apiDocu:
-    apiDir: "%wwwDir%/client-api"
-    httpAuth:
-        user: foo
-        password: bar
+	apiDir: "%wwwDir%/client-api"
+	httpAuth:
+		user: foo
+		password: bar
 ```

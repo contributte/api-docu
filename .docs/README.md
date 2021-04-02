@@ -1,6 +1,18 @@
-# ApiDocu
+# Contributte\ApiDocu
 
 ApiDocu can generate api documentation for routes created using [ApiRouter](https://github.com/contributte/api-router). It works either for directly defined routes or the ones defined via annotation.</p>
+
+## Content
+
+- [Content](#content)
+- [Installing ApiDocu](#installing-apidocu)
+- [Usage - runtime documentation](#usage---runtime-documentation)
+    + [GET routes](#get-routes)
+    + [PUT, POST, DELETE routes](#put--post--delete-routes)
+    + [Presenter code:](#presenter-code-)
+- [Generating API documentation](#generating-api-documentation)
+    + [`?__apiDocuGenerate`](#----apidocugenerate-)
+- [HTTP authorization](#http-authorization)
 
 ## Installing ApiDocu
 

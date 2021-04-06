@@ -1,8 +1,10 @@
-# ApiDocu
+# Contributte / ApiDocu
 
 ApiDocu can generate api documentation for routes created using [ApiRouter](https://github.com/contributte/api-router). It works either for directly defined routes or the ones defined via annotation.</p>
 
-## Installing ApiDocu
+## Setup
+
+### Installing
 
 ApiDocu is available through composer package `contributte/api-docu`:
 

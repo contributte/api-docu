@@ -1,56 +1,59 @@
 {
-	"name": "contributte/api-docu",
-	"type": "library",
-	"description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
-	"keywords": ["rest", "api", "documentation", "docu", "apidocu", "routes", "nette"],
-	"homepage": "https://github.com/contributte/api-docu",
-	"license": ["MIT"],
-	"support": {
-		"issues": "https://github.com/contributte/api-docu/issues"
-	},
-	"authors": [
-		{
-			"name": "Pavel Janda",
-			"homepage": "http://paveljanda.com"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Contributte\\ApiDocu\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Contributte\\ApiDocu\\Tests\\": "tests"
-		}
-	},
-	"require": {
-		"php": ">= 7.1.0",
-		"nette/http": "^3.0",
-		"nette/application": "^3.0",
-		"nette/di": "^3.0",
-		"latte/latte": "^2.6",
-		"contributte/api-router": "~4.0.0"
-	},
-	"require-dev": {
-		"nette/tester": "^2.2",
-		"mockery/mockery": "~1.2.2",
-		"tracy/tracy": "^2.6",
-		"gamee/php-code-checker-rules": "^1.0",
-		"ninjify/coding-standard": "^0.9.0"
-	},
-	"prefer-stable": true,
-	"minimum-stability": "dev",
-	"scripts": {
-		"tests": "vendor/bin/tester -s --colors 1 -C ./tests",
-		"coverage": "vendor/bin/tester -s -p phpdbg --colors 1 -C --coverage ./coverage.xml --coverage-src ./src ./tests",
-		"phpstan": "vendor/phpstan/phpstan/bin/phpstan analyse -c vendor/gamee/php-code-checker-rules/phpstan.neon src --level 7",
-		"phpcs": "vendor/bin/phpcs --standard=vendor/ninjify/coding-standard/ruleset-gamee.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src",
-		"phpcsfix": "vendor/bin/phpcbf --standard=vendor/ninjify/coding-standard/ruleset-gamee.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "5.0.x-dev"
-		}
-	}
+  "name": "contributte/api-docu",
+  "type": "library",
+  "description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
+  "keywords": [
+    "rest",
+    "api",
+    "documentation",
+    "docu",
+    "apidocu",
+    "routes",
+    "nette"
+  ],
+  "homepage": "https://github.com/contributte/api-docu",
+  "license": [
+    "MIT"
+  ],
+  "support": {
+    "issues": "https://github.com/contributte/api-docu/issues"
+  },
+  "authors": [
+    {
+      "name": "Pavel Janda",
+      "homepage": "http://paveljanda.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Contributte\\ApiDocu\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Contributte\\ApiDocu\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">= 7.1.0",
+    "nette/http": "^3.0",
+    "nette/application": "^3.0",
+    "nette/di": "^3.0",
+    "latte/latte": "^2.6",
+    "contributte/api-router": "~4.0.0"
+  },
+  "require-dev": {
+    "nette/tester": "^2.2",
+    "mockery/mockery": "~1.2.2",
+    "tracy/tracy": "^2.6",
+    "gamee/php-code-checker-rules": "^1.0",
+    "ninjify/coding-standard": "^0.9.0"
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "5.0.x-dev"
+    }
+  }
 }

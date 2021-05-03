@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Contributte\ApiDocu;
 
-use Nette\Application\IRouter;
-use Nette\Application\Request;
-use Nette\Application\Routers\RouteList;
 use Contributte\ApiRouter\ApiRoute;
+use Nette\Application\IRouter;
+use Nette\Application\Routers\RouteList;
 
 class Starter
 {

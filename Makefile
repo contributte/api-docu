@@ -12,7 +12,7 @@ csf:
 	vendor/bin/phpcbf --standard=vendor/ninjify/coding-standard/ruleset-gamee.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src
 
 phpstan:
-	vendor/phpstan/phpstan/bin/phpstan analyse -c vendor/gamee/php-code-checker-rules/phpstan.neon src --level 7
+	vendor/bin/phpstan analyse -c vendor/gamee/php-code-checker-rules/phpstan.neon src --level 7
 
 tests:
 	vendor/bin/tester -s --colors 1 -C tests

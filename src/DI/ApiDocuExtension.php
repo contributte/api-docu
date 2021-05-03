@@ -54,7 +54,7 @@ class ApiDocuExtension extends CompilerExtension
 	}
 
 
-	public function afterCompile(ClassType $class)
+	public function afterCompile(ClassType $class): void
 	{
 		parent::afterCompile($class);
 

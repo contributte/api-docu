@@ -52,7 +52,8 @@
     "phpstan/phpstan": "^0.12",
     "phpstan/phpstan-deprecation-rules": "^0.12",
     "phpstan/phpstan-nette": "^0.12",
-    "phpstan/phpstan-strict-rules": "^0.12"
+    "phpstan/phpstan-strict-rules": "^0.12",
+    "contributte/code-rules": "^1.0"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",

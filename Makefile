@@ -6,10 +6,10 @@ install:
 qa: phpstan cs
 
 cs:
-	vendor/bin/phpcs --standard=vendor/ninjify/coding-standard/ruleset-gamee.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src
+	vendor/bin/codesniffer src tests
 
 csf:
-	vendor/bin/phpcbf --standard=vendor/ninjify/coding-standard/ruleset-gamee.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src
+	vendor/bin/codefixer src tests
 
 phpstan:
 	vendor/bin/phpstan analyse -c vendor/gamee/php-code-checker-rules/phpstan.neon src --level 7

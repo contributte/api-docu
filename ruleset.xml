@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset>
+	<!-- Contributte Coding Standard -->
+	<rule ref="./vendor/contributte/code-rules/paveljanda/ruleset.xml"/>
+
+	<!-- Specific rules -->
+	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+		<properties>
+			<property name="rootNamespaces" type="array">
+				<element key="src" value="Contributte\ApiDocu"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Exclude folders -->
+	<exclude-pattern>/tests/tmp</exclude-pattern>
+</ruleset>

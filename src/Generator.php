@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Contributte\ApiDocu;
 
+use Contributte\ApiRouter\ApiRoute;
 use Nette\Application\IRouter;
-use Nette\Application\Request;
 use Nette\Application\UI\ITemplateFactory;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http;
 use Tracy\Debugger;
-use Contributte\ApiRouter\ApiRoute;
 
 class Generator
 {

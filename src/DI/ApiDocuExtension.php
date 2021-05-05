@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Contributte\ApiDocu\DI;
 
+use Contributte\ApiDocu\Generator;
+use Contributte\ApiDocu\Starter;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Helpers;
 use Nette\PhpGenerator\ClassType;
-use Contributte\ApiDocu\Generator;
-use Contributte\ApiDocu\Starter;
 
 class ApiDocuExtension extends CompilerExtension
 {
@@ -54,7 +54,7 @@ class ApiDocuExtension extends CompilerExtension
 	}
 
 
-	public function afterCompile(ClassType $class)
+	public function afterCompile(ClassType $class): void
 	{
 		parent::afterCompile($class);
 

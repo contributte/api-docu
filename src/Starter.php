@@ -29,6 +29,7 @@ class Starter
 	 */
 	private $router;
 
+
 	public function __construct(
 		Generator $generator,
 		IRouter $router

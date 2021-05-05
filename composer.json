@@ -1,65 +1,65 @@
 {
-  "name": "contributte/api-docu",
-  "type": "library",
-  "description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
-  "keywords": [
-    "rest",
-    "api",
-    "documentation",
-    "docu",
-    "apidocu",
-    "routes",
-    "nette"
-  ],
-  "homepage": "https://github.com/contributte/api-docu",
-  "license": [
-    "MIT"
-  ],
-  "support": {
-    "issues": "https://github.com/contributte/api-docu/issues"
-  },
-  "authors": [
-    {
-      "name": "Pavel Janda",
-      "homepage": "http://paveljanda.com"
+    "name": "contributte/api-docu",
+    "type": "library",
+    "description": "Documentation generating for ApiRouter routes - awesome runtime documentation",
+    "keywords": [
+        "rest",
+        "api",
+        "documentation",
+        "docu",
+        "apidocu",
+        "routes",
+        "nette"
+    ],
+    "homepage": "https://github.com/contributte/api-docu",
+    "license": [
+        "MIT"
+    ],
+    "support": {
+        "issues": "https://github.com/contributte/api-docu/issues"
+    },
+    "authors": [
+        {
+            "name": "Pavel Janda",
+            "homepage": "http://paveljanda.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Contributte\\ApiDocu\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Contributte\\ApiDocu\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">= 7.1.0",
+        "nette/http": "^3.0",
+        "nette/application": "^3.0",
+        "nette/di": "^3.0",
+        "latte/latte": "^2.6",
+        "contributte/api-router": "~4.0.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "~1.2.2",
+        "tracy/tracy": "^2.6",
+        "gamee/php-code-checker-rules": "^2.0",
+        "ninjify/coding-standard": "^0.11.0",
+        "ninjify/nunjuck": "^0.4",
+        "ninjify/qa": "^0.12",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-deprecation-rules": "^0.12",
+        "phpstan/phpstan-nette": "^0.12",
+        "phpstan/phpstan-strict-rules": "^0.12",
+        "contributte/code-rules": "^1.0"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.0.x-dev"
+        }
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Contributte\\ApiDocu\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Contributte\\ApiDocu\\Tests\\": "tests"
-    }
-  },
-  "require": {
-    "php": ">= 7.1.0",
-    "nette/http": "^3.0",
-    "nette/application": "^3.0",
-    "nette/di": "^3.0",
-    "latte/latte": "^2.6",
-    "contributte/api-router": "~4.0.0"
-  },
-  "require-dev": {
-    "mockery/mockery": "~1.2.2",
-    "tracy/tracy": "^2.6",
-    "gamee/php-code-checker-rules": "^2.0",
-    "ninjify/coding-standard": "^0.11.0",
-    "ninjify/nunjuck": "^0.4",
-    "ninjify/qa": "^0.12",
-    "phpstan/phpstan": "^0.12",
-    "phpstan/phpstan-deprecation-rules": "^0.12",
-    "phpstan/phpstan-nette": "^0.12",
-    "phpstan/phpstan-strict-rules": "^0.12",
-    "contributte/code-rules": "^1.0"
-  },
-  "prefer-stable": true,
-  "minimum-stability": "dev",
-  "extra": {
-    "branch-alias": {
-      "dev-master": "5.0.x-dev"
-    }
-  }
 }

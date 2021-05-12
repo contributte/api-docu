@@ -200,7 +200,7 @@ class Generator
 
 		foreach ($routes as $route) {
 			if ($route->getSection()) {
-				if ($sections[$route->getSection()] === []) {
+				if ($sections !== [] && $sections[$route->getSection()] === []) {
 					$sections[$route->getSection()] = [];
 				}
 

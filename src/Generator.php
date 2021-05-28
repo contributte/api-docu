@@ -157,11 +157,11 @@ class Generator
 
 		$template->setParameters(['base_dir' => __DIR__ . '/templates']);
 
-		$template->addFilter('routeMaskStyles', function ($mask) {
+		$template->addFilter('routeMaskStyles', function ($mask): string {
 			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);
 		});
 
-		$template->addFilter('apiDocuResponseCode', function ($code) {
+		$template->addFilter('apiDocuResponseCode', function ($code): string {
 			if ($code >= 200 && $code <= 202) {
 				return "<span class=\"apiDocu-code-success\">{$code}</span>";
 			}

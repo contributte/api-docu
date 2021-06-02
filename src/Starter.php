@@ -71,7 +71,7 @@ class Starter
 	 */
 	protected function attachEvents(RouteList $routeList): void
 	{
-		foreach ($routeList as $route) {
+		foreach ($routeList->getRouters() as $route) {
 			if ($route instanceof ApiRoute) {
 				$route->onMatch[] = [$this, 'routeMatched'];
 			}

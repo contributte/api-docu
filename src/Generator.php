@@ -223,7 +223,7 @@ class Generator
 	{
 		$return = [];
 
-		foreach ($i as $router) {
+		foreach ($i->getRouters() as $router) {
 			if ($router instanceof ApiRoute) {
 				$return[] = $router;
 			} elseif ($router instanceof \IteratorAggregate) {

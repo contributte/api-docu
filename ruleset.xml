@@ -10,6 +10,8 @@
 				<element key="src" value="Contributte\ApiDocu"/>
 			</property>
 		</properties>
+
+		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable" />
 	</rule>
 
 	<!-- Exclude folders -->

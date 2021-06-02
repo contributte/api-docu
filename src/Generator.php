@@ -6,7 +6,9 @@ namespace Contributte\ApiDocu;
 
 use Contributte\ApiRouter\ApiRoute;
 use Nette\Application\IRouter;
+use Nette\Application\Routers\RouteList;
 use Nette\Application\UI\ITemplateFactory;
+use Nette\Bridges\ApplicationLatte\DefaultTemplate;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http;
 use Tracy\Debugger;
@@ -80,6 +82,7 @@ class Generator
 
 	public function generateTarget(ApiRoute $route, array $parameters): void
 	{
+		/** @var DefaultTemplate $template */
 		$template = $this->createTemplate('api_docu_matched.latte');
 
 		$template->setParameters([
@@ -98,6 +101,7 @@ class Generator
 
 	public function generateOne(ApiRoute $route, array $sections, string $fileName): void
 	{
+		/** @var DefaultTemplate $template */
 		$template = $this->createTemplate('api_docu_one.latte');
 
 		$template->setParameters([
@@ -114,6 +118,7 @@ class Generator
 
 	public function generateIndex(array $sections): void
 	{
+		/** @var DefaultTemplate $template */
 		$template = $this->createTemplate('api_docu_index.latte');
 
 		$template->setParameters([
@@ -129,6 +134,7 @@ class Generator
 
 	public function generateSuccess(): void
 	{
+		/** @var DefaultTemplate $template */
 		$template = $this->createTemplate('api_docu_success.latte');
 
 		$template->setParameters([
@@ -145,6 +151,7 @@ class Generator
 
 	public function createTemplate(string $which): Template
 	{
+		/** @var DefaultTemplate|null $template */
 		$template = $this->templateFactory->createTemplate();
 
 		if (!$template instanceof Template) {
@@ -223,7 +230,9 @@ class Generator
 	{
 		$return = [];
 
-		foreach ($i->getRouters() as $router) {
+		/** @var RouteList $i */
+		$routers = $i->getRouters();
+		foreach ($routers as $router) {
 			if ($router instanceof ApiRoute) {
 				$return[] = $router;
 			} elseif ($router instanceof \IteratorAggregate) {

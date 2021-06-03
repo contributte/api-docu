@@ -40,7 +40,7 @@
 		"nette/application": "^3.0",
 		"nette/di": "^3.0",
 		"latte/latte": "^2.6",
-		"contributte/api-router": "~4.0.0"
+		"contributte/api-router": "^4.0"
 	},
 	"require-dev": {
 		"mockery/mockery": "~1.3.4",

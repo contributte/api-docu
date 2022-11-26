@@ -10,7 +10,7 @@ use Nette\DI\CompilerExtension;
 use Nette\DI\Helpers;
 use Nette\PhpGenerator\ClassType;
 
-class ApiDocuExtension extends CompilerExtension
+final class ApiDocuExtension extends CompilerExtension
 {
 
 	/**

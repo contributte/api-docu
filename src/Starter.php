@@ -8,7 +8,7 @@ use Contributte\ApiRouter\ApiRoute;
 use Nette\Application\IRouter;
 use Nette\Application\Routers\RouteList;
 
-class Starter
+final class Starter
 {
 
 	public const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';

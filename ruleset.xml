@@ -12,6 +12,7 @@
 		</properties>
 
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable" />
+		<exclude name="SlevomatCodingStandard.Classes.ForbiddenPublicProperty.ForbiddenPublicProperty" />
 	</rule>
 
 	<!-- Exclude folders -->

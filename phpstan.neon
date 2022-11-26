@@ -1,0 +1,5 @@
+includes:
+	- vendor/gamee/php-code-checker-rules/phpstan.neon
+
+parameters:
+	reportMaybesInPropertyPhpDocTypes: false

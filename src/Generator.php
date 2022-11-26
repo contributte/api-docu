@@ -32,11 +32,13 @@ final class Generator
 	private $appDir;
 
 	/**
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $httpAuth;
 
-
+	/**
+	 * @param array<mixed> $httpAuth
+	 */
 	public function __construct(
 		string $appDir,
 		array $httpAuth,
@@ -79,7 +81,9 @@ final class Generator
 		$this->generateSuccess();
 	}
 
-
+	/**
+	 * @param array<mixed> $parameters
+	 */
 	public function generateTarget(ApiRoute $route, array $parameters): void
 	{
 		/** @var DefaultTemplate $template */
@@ -98,7 +102,9 @@ final class Generator
 		echo (string) $template;
 	}
 
-
+	/**
+	 * @param array<mixed> $sections
+	 */
 	public function generateOne(ApiRoute $route, array $sections, string $fileName): void
 	{
 		/** @var DefaultTemplate $template */
@@ -115,7 +121,9 @@ final class Generator
 		);
 	}
 
-
+	/**
+	 * @param array<mixed> $sections
+	 */
 	public function generateIndex(array $sections): void
 	{
 		/** @var DefaultTemplate $template */
@@ -192,7 +200,9 @@ final class Generator
 	 *                                   INTERNAL                                   *
 	 ********************************************************************************/
 
-
+	/**
+	 * @return array<mixed>
+	 */
 	private function splitRoutesIntoSections(IRouter $router): array
 	{
 		$routes = [];
@@ -225,6 +235,7 @@ final class Generator
 
 	/**
 	 * Recursively flatten \IteratorAggregate (probably Nette\Application\Routers\RouteList)
+	 * @return array<mixed>
 	 */
 	private function getApiRoutesFromIterator(\IteratorAggregate $i): array
 	{

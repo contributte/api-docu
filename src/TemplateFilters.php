@@ -24,7 +24,9 @@ final class TemplateFilters
 		return null;
 	}
 
-
+	/**
+	 * @param array<mixed> $text
+	 */
 	public static function description(array $text): string
 	{
 		$text = reset($text);

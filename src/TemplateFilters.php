@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Contributte\ApiDocu;
 
-final class TemplateFilters
+class TemplateFilters
 {
 	public static function common(string $filter): ?string
 	{

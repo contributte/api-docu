@@ -13,7 +13,7 @@ use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http;
 use Tracy\Debugger;
 
-final class Generator
+class Generator
 {
 
 	/**

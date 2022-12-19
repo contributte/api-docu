@@ -12,6 +12,8 @@
 		</properties>
 
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable" />
+		<exclude name="SlevomatCodingStandard.Classes.ForbiddenPublicProperty.ForbiddenPublicProperty" />
+		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal" />
 	</rule>
 
 	<!-- Exclude folders -->

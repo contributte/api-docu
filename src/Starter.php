@@ -45,6 +45,7 @@ class Starter
 
 	/**
 	 * Event thatis firex when particular ApiRoute is matched
+	 * @param array<mixed> $parameters
 	 */
 	public function routeMatched(ApiRoute $route, array $parameters): void
 	{

@@ -14,12 +14,12 @@ class ApiDocuExtension extends CompilerExtension
 {
 
 	/**
-	 * @var array
+	 * @var array<mixed>
 	 */
 	protected $config;
 
 	/**
-	 * @var array
+	 * @var array<string|array<null>>
 	 */
 	private $defaults = [
 		'apiDir' => '%wwwDir%/api',
@@ -65,6 +65,9 @@ class ApiDocuExtension extends CompilerExtension
 	}
 
 
+	/**
+	 * @return array<mixed>
+	 */
 	protected function prepareConfig(): array
 	{
 		$config = $this->validateConfig($this->defaults, $this->config);

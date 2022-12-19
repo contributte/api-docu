@@ -24,7 +24,9 @@ class TemplateFilters
 		return null;
 	}
 
-
+	/**
+	 * @param array<mixed> $text
+	 */
 	public static function description(array $text): string
 	{
 		$text = reset($text);
@@ -32,7 +34,7 @@ class TemplateFilters
 		$text = str_replace(["\n", "\n\r", "\r\n", "\r"], '', $text);
 
 		$text = preg_replace_callback('/<json><br \/>(.*?)<\/json>/s', function ($item): string {
-			$s = '<br><pre class="apiDocu-json">' . str_replace('<br>', '', end($item)) . '</pre>';
+			$s = '<br><pre class="apiDocu-json">' . str_replace('<br>', '', (string) end($item)) . '</pre>';
 			$s = (string) preg_replace('/(\s)"([^"]+)"/', '$1<span class="apiDocu-string">"$2"</span>', $s);
 			$s = (string) preg_replace('/\/\/(.*?)<br \/>/', '<span class="apiDocu-comment">//$1</span><br>', $s);
 

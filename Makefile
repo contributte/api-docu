@@ -12,7 +12,7 @@ csf:
 	vendor/bin/codefixer src tests
 
 phpstan:
-	vendor/bin/phpstan analyse -c vendor/gamee/php-code-checker-rules/phpstan.neon src --level 7
+	vendor/bin/phpstan analyse -c phpstan.neon src --level 7
 
 tests:
 	vendor/bin/tester -s --colors 1 -C tests

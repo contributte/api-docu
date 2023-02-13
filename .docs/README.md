@@ -5,7 +5,6 @@ ApiDocu can generate api documentation for routes created using [ApiRouter](http
 ## Content
 
 - [Content](#content)
-- [Installing ApiDocu](#installing-apidocu)
 - [Usage - runtime documentation](#usage---runtime-documentation)
     + [GET routes](#get-routes)
     + [PUT, POST, DELETE routes](#put--post--delete-routes)
@@ -13,14 +12,6 @@ ApiDocu can generate api documentation for routes created using [ApiRouter](http
 - [Generating API documentation](#generating-api-documentation)
     + [`?__apiDocuGenerate`](#----apidocugenerate-)
 - [HTTP authorization](#http-authorization)
-
-## Installing ApiDocu
-
-ApiDocu is available through composer package `contributte/api-docu`:
-
-```bash
-composer require contributte/api-docu
-```
 
 ## Usage - runtime documentation
 
@@ -46,7 +37,7 @@ use Contributte\ApiRouter\ApiRoute;
 
 /**
  * API for managing users
- * 
+ *
  * @ApiRoute(
  * 	"/api-router/api/users[/<id>]",
  * 	parameters={
@@ -85,7 +76,7 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 	 * 	}}
 	 * }
 	 * </json>
-	 * 
+	 *
 	 * @ApiRoute(
 	 * 	"/api-router/api/users/<id>[/<foo>-<bar>]",
 	 * 	parameters={

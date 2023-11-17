@@ -144,7 +144,6 @@ When you are directly on some api url, you can use query parameter `?__apiDocuGe
 apiDocu:
 	apiDir: "%wwwDir%/api"
 
-
 extensions:
 	apiRouter: Contributte\ApiRouter\DI\ApiRouterExtension
 	apiDocu: Contributte\ApiDocu\DI\ApiDocuExtension

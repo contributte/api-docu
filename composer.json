@@ -43,27 +43,23 @@
 		"contributte/api-router": "^5.0 || ^6.0"
 	},
 	"require-dev": {
-		"mockery/mockery": "^1.3.4",
-		"tracy/tracy": "^2.6",
-		"contributte/code-rules": "^1.1",
-		"ninjify/coding-standard": "^0.12",
-		"ninjify/nunjuck": "^0.3",
-		"ninjify/qa": "^0.13",
-		"phpstan/phpstan": "^1.0",
-		"phpstan/phpstan-deprecation-rules": "^1.0",
-		"phpstan/phpstan-nette": "^1.0",
-		"phpstan/phpstan-strict-rules": "^1.0"
+		"contributte/qa": "^0.4",
+		"contributte/tester": "^0.3",
+		"contributte/phpstan": "^0.1",
+		"mockery/mockery": "^1.6.6",
+		"tracy/tracy": "^2.10.5"
 	},
-	"prefer-stable": true,
 	"minimum-stability": "dev",
-	"extra": {
-		"branch-alias": {
-			"dev-master": "5.0.x-dev"
-		}
-	},
+	"prefer-stable": true,
 	"config": {
+		"sort-packages": true,
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "5.1.x-dev"
 		}
 	}
 }

@@ -36,11 +36,11 @@
 	},
 	"require": {
 		"php": ">=8.1",
-		"nette/http": "^3.0",
-		"nette/application": "^3.0",
-		"nette/di": "^3.0",
+		"nette/http": "^3.2.3",
+		"nette/application": "^3.1.14",
+		"nette/di": "^3.1.8",
 		"latte/latte": "^2.6|^3.0",
-		"contributte/api-router": "^4.0"
+		"contributte/api-router": "^5.0 || ^6.0"
 	},
 	"require-dev": {
 		"mockery/mockery": "^1.3.4",

@@ -5,6 +5,7 @@ use Contributte\ApiDocu\Generator;
 use Contributte\ApiRouter\DI\ApiRouterExtension;
 use Contributte\Tester\Environment;
 use Contributte\Tester\Toolkit;
+use Contributte\Tester\Utils\Neonkit;
 use Nette\Bridges\ApplicationDI\LatteExtension;
 use Nette\Bridges\HttpDI\HttpExtension;
 use Nette\DI\Compiler;
@@ -29,7 +30,7 @@ Toolkit::test(function (): void {
 				'debugMode' => false,
 			],
 		]);
-		$compiler->addConfig(\Contributte\Tester\Utils\Neonkit::load(<<<'NEON'
+		$compiler->addConfig(Neonkit::load(<<<'NEON'
 		services:
 			router: Nette\Routing\SimpleRouter
 		NEON

@@ -1,58 +1,45 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Contributte\ApiDocu;
 
 use Contributte\ApiRouter\ApiRoute;
-use Nette\Application\IRouter;
 use Nette\Application\Routers\RouteList;
-use Nette\Application\UI\ITemplateFactory;
+use Nette\Application\UI\TemplateFactory;
 use Nette\Bridges\ApplicationLatte\DefaultTemplate;
 use Nette\Bridges\ApplicationLatte\Template;
-use Nette\Http;
+use Nette\Http\Request;
+use Nette\Routing\Router;
 use Tracy\Debugger;
 
 class Generator
 {
 
-	/**
-	 * @var ITemplateFactory
-	 */
-	private $templateFactory;
+	private TemplateFactory $templateFactory;
+
+	private Request $httpRequest;
+
+	private string $appDir;
+
+	/** @var array{user: ?string, password: ?string} */
+	private array $httpAuth;
 
 	/**
-	 * @var Http\Request
-	 */
-	private $httpRequest;
-
-	/**
-	 * @var string
-	 */
-	private $appDir;
-
-	/**
-	 * @var array<mixed>
-	 */
-	private $httpAuth;
-
-	/**
-	 * @param array<mixed> $httpAuth
+	 * @param array{user: ?string, password: ?string} $httpAuth
 	 */
 	public function __construct(
 		string $appDir,
 		array $httpAuth,
-		ITemplateFactory $templateFactory,
-		Http\Request $httpRequest
-	) {
+		TemplateFactory $templateFactory,
+		Request $httpRequest
+	)
+	{
 		$this->appDir = $appDir;
 		$this->httpAuth = $httpAuth;
 		$this->templateFactory = $templateFactory;
 		$this->httpRequest = $httpRequest;
 	}
 
-
-	public function generateAll(IRouter $router): void
+	public function generateAll(Router $router): void
 	{
 		$sections = $this->splitRoutesIntoSections($router);
 
@@ -71,7 +58,7 @@ class Generator
 		foreach ($sections as $sectionName => $routes) {
 			if (is_array($routes)) {
 				foreach ($routes as $fileName => $route) {
-					$this->generateOne($route, $sections, "$sectionName.$fileName");
+					$this->generateOne($route, $sections, $sectionName . '.' . $fileName);
 				}
 			} else {
 				$this->generateOne($routes, $sections, (string) $sectionName);
@@ -95,7 +82,7 @@ class Generator
 			'httpRequest' => $this->httpRequest,
 		]);
 
-		if (class_exists('Tracy\Debugger')) {
+		if (class_exists(Debugger::class)) {
 			Debugger::$productionMode = true;
 		}
 
@@ -139,7 +126,6 @@ class Generator
 		);
 	}
 
-
 	public function generateSuccess(): void
 	{
 		/** @var DefaultTemplate $template */
@@ -149,22 +135,17 @@ class Generator
 			'apiDir' => $this->appDir,
 		]);
 
-		if (class_exists('Tracy\Debugger')) {
+		if (class_exists(Debugger::class)) {
 			Debugger::$productionMode = true;
 		}
 
 		echo (string) $template;
 	}
 
-
 	public function createTemplate(string $which): Template
 	{
-		/** @var DefaultTemplate|null $template */
 		$template = $this->templateFactory->createTemplate();
-
-		if (!$template instanceof Template) {
-			throw new \UnexpectedValueException;
-		}
+		assert($template instanceof DefaultTemplate);
 
 		$template->addFilter(null, 'Contributte\ApiDocu\TemplateFilters::common');
 
@@ -172,9 +153,7 @@ class Generator
 
 		$template->setParameters(['base_dir' => __DIR__ . '/templates']);
 
-		$template->addFilter('routeMaskStyles', function ($mask): string {
-			return str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask);
-		});
+		$template->addFilter('routeMaskStyles', fn ($mask): string => str_replace(['<', '>'], ['<span class="apiDocu-mask-param">&lt;', '&gt;</span>'], $mask));
 
 		$template->addFilter('apiDocuResponseCode', function ($code): string {
 			if ($code >= 200 && $code <= 202) {
@@ -197,13 +176,13 @@ class Generator
 
 
 	/********************************************************************************
-	 *                                   INTERNAL                                   *
+	 *                                   INTERNAL *
 	 ********************************************************************************/
 
 	/**
-	 * @return array<mixed>
+	 * @return array<int<1,max>|string, array<int,ApiRoute>|ApiRoute>
 	 */
-	private function splitRoutesIntoSections(IRouter $router): array
+	private function splitRoutesIntoSections(Router $router): array
 	{
 		$routes = [];
 		$sections = [];
@@ -211,17 +190,14 @@ class Generator
 
 		if ($router instanceof ApiRoute) {
 			$routes = [$router];
-		} elseif ($router instanceof \IteratorAggregate) {
+		} elseif ($router instanceof RouteList) {
 			$routes = $this->getApiRoutesFromIterator($router);
 		}
 
 		foreach ($routes as $route) {
-			if ($route->getSection()) {
-				if ($sections !== [] && $sections[$route->getSection()] === []) {
-					$sections[$route->getSection()] = [];
-				}
-
-				$sections[$route->getSection()][$fileName] = $route;
+			if ($route->getSection() !== null) {
+				$sections[$route->getSection()] ??= [];
+				$sections[$route->getSection()][$fileName] = $route; // @phpstan-ignore-line
 			} else {
 				$sections[$fileName] = $route;
 			}
@@ -232,21 +208,20 @@ class Generator
 		return $sections;
 	}
 
-
 	/**
 	 * Recursively flatten \IteratorAggregate (probably Nette\Application\Routers\RouteList)
-	 * @return array<mixed>
+	 *
+	 * @return array<ApiRoute>
 	 */
-	private function getApiRoutesFromIterator(\IteratorAggregate $i): array
+	private function getApiRoutesFromIterator(RouteList $routeList): array
 	{
 		$return = [];
+		$routers = $routeList->getRouters();
 
-		/** @var RouteList $i */
-		$routers = $i->getRouters();
 		foreach ($routers as $router) {
 			if ($router instanceof ApiRoute) {
 				$return[] = $router;
-			} elseif ($router instanceof \IteratorAggregate) {
+			} elseif ($router instanceof RouteList) {
 				$routes = $this->getApiRoutesFromIterator($router);
 
 				foreach ($routes as $route) {
@@ -257,7 +232,6 @@ class Generator
 
 		return $return;
 	}
-
 
 	private function getHttpAuthSnippet(): string
 	{
@@ -277,4 +251,5 @@ class Generator
 			. "	die('Invalid authentication');"
 			. '} ?>';
 	}
+
 }

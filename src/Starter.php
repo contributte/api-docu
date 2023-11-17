@@ -1,12 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Contributte\ApiDocu;
 
 use Contributte\ApiRouter\ApiRoute;
-use Nette\Application\IRouter;
 use Nette\Application\Routers\RouteList;
+use Nette\Routing\Router;
 
 class Starter
 {
@@ -14,26 +12,15 @@ class Starter
 	public const API_DOCU_STARTER_QUERY_KEY_TARGET = '__apiDocu';
 	public const API_DOCU_STARTER_QUERY_KEY_GENERATE = '__apiDocuGenerate';
 
-	/**
-	 * @var callable[]
-	 */
-	public $onMatch;
+	/** @var callable[] */
+	public array $onMatch = [];
 
-	/**
-	 * @var Generator
-	 */
-	private $generator;
+	private Generator $generator;
 
-	/**
-	 * @var IRouter
-	 */
-	private $router;
+	private Router $router;
 
-
-	public function __construct(
-		Generator $generator,
-		IRouter $router
-	) {
+	public function __construct(Generator $generator, Router $router)
+	{
 		$this->generator = $generator;
 		$this->router = $router;
 
@@ -42,9 +29,9 @@ class Starter
 		}
 	}
 
-
 	/**
 	 * Event thatis firex when particular ApiRoute is matched
+	 *
 	 * @param array<mixed> $parameters
 	 */
 	public function routeMatched(ApiRoute $route, array $parameters): void
@@ -66,7 +53,6 @@ class Starter
 		}
 	}
 
-
 	/**
 	 * Find ApiRoutes and add listener to each ApiRoute::onMatch event
 	 */
@@ -78,4 +64,5 @@ class Starter
 			}
 		}
 	}
+
 }

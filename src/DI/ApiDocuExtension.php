@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Contributte\ApiDocu\DI;
 
@@ -9,32 +7,31 @@ use Contributte\ApiDocu\Starter;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Helpers;
 use Nette\PhpGenerator\ClassType;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
+use stdClass;
 
+/**
+ * @property-read stdClass $config
+ */
 class ApiDocuExtension extends CompilerExtension
 {
 
-	/**
-	 * @var array<mixed>
-	 */
-	protected $config;
-
-	/**
-	 * @var array<string|array<null>>
-	 */
-	private $defaults = [
-		'apiDir' => '%wwwDir%/api',
-		'httpAuth' => [
-			'user' => null,
-			'password' => null,
-		],
-	];
-
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'apiDir' => Expect::string()->default('%wwwDir%/api'),
+			'httpAuth' => Expect::structure([
+				'user' => Expect::string(),
+				'password' => Expect::string(),
+			]),
+		]);
+	}
 
 	public function loadConfiguration(): void
 	{
 		$this->config = $this->prepareConfig();
 	}
-
 
 	public function beforeCompile(): void
 	{
@@ -42,17 +39,16 @@ class ApiDocuExtension extends CompilerExtension
 		$config = $this->config;
 
 		$builder->addDefinition($this->prefix('generator'))
-			->setClass(Generator::class)
-			->setArguments([$config['apiDir'], $config['httpAuth']]);
+			->setType(Generator::class)
+			->setArguments([$config->apiDir, (array) $config->httpAuth]);
 
 		$builder->addDefinition($this->prefix('starter'))
-			->setClass(Starter::class)
+			->setType(Starter::class)
 			->setArguments([
 				$builder->getDefinition($this->prefix('generator')),
 				$builder->getDefinition('router'),
 			]);
 	}
-
 
 	public function afterCompile(ClassType $class): void
 	{
@@ -64,19 +60,13 @@ class ApiDocuExtension extends CompilerExtension
 		);
 	}
 
-
-	/**
-	 * @return array<mixed>
-	 */
-	protected function prepareConfig(): array
+	protected function prepareConfig(): stdClass
 	{
-		$config = $this->validateConfig($this->defaults, $this->config);
-
-		$config['apiDir'] = Helpers::expand(
-			$config['apiDir'],
-			$this->getContainerBuilder()->parameters
-		);
+		/** @var stdClass $config */
+		$config = $this->getConfig();
+		$config->apiDir = Helpers::expand($config->apiDir, $this->getContainerBuilder()->parameters);
 
 		return $config;
 	}
+
 }

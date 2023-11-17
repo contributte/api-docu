@@ -2,7 +2,7 @@
 <ruleset name="Contributte" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
 	<!-- Rulesets -->
 	<rule ref="./vendor/contributte/qa/ruleset-8.0.xml">
-		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference"/>
+		<exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
 	</rule>
 
 	<!-- Rules -->

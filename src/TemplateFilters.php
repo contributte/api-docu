@@ -1,21 +1,20 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Contributte\ApiDocu;
 
 class TemplateFilters
 {
+
 	public static function common(string $filter): ?string
 	{
-		if (method_exists(__CLASS__, $filter)) {
+		if (method_exists(self::class, $filter)) {
 			$args = func_get_args();
 			array_shift($args);
 
-			$callback = [__CLASS__, $filter];
+			$callback = [self::class, $filter];
 
 			if (!is_callable($callback)) {
-				throw new \UnexpectedValueException;
+				throw new \UnexpectedValueException();
 			}
 
 			return ($callback)($args);
@@ -30,7 +29,7 @@ class TemplateFilters
 	public static function description(array $text): string
 	{
 		$text = reset($text);
-		$text = nl2br($text);
+		$text = nl2br($text); // @phpstan-ignore-line
 		$text = str_replace(["\n", "\n\r", "\r\n", "\r"], '', $text);
 
 		$text = preg_replace_callback('/<json><br \/>(.*?)<\/json>/s', function ($item): string {
@@ -45,4 +44,5 @@ class TemplateFilters
 
 		return (string) $text;
 	}
+
 }

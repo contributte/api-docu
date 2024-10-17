@@ -29,7 +29,7 @@
 					<span style="background-color: {$color|noescape};" class="apiDocu-url-tag">{$tag}</span>
 				{/foreach}
 			</div>
-			
+
 			<small>/{$httpRequest->getUrl()->getRelativeUrl()}</small>
 		</div>
 
@@ -99,6 +99,11 @@
 				{/foreach}
 			</table>
 		</div>
+
+		{if $route->getData()}
+			<h2>Example data</h2>
+			<pre class="apiDocu-parameters-box">{json_encode($route->getData(), JSON_PRETTY_PRINT)}</pre>
+		{/if}
 
 		{if $route->getExample()}
 			<h2>Example response</h2>

@@ -77,6 +77,11 @@
 			</p>
 		{/if}
 
+		{if $route->getData()}
+			<h2>Example data</h2>
+			<pre class="apiDocu-parameters-box">{json_encode($route->getData(), JSON_PRETTY_PRINT)}</pre>
+		{/if}
+
 		{if $route->getExample()}
 			<h2>Example response</h2>
 			<pre class="apiDocu-parameters-box">{json_encode($route->getExample(), JSON_PRETTY_PRINT)}</pre>

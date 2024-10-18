@@ -100,6 +100,11 @@
 			</table>
 		</div>
 
+		{if $route->getComment()}
+			<h2>Comment</h2>
+			<pre class="apiDocu-description">{nl2br($route->getComment())}</pre>
+		{/if}
+
 		{if $route->getData()}
 			<h2>Example data</h2>
 			<pre class="apiDocu-parameters-box">{json_encode($route->getData(), JSON_PRETTY_PRINT)}</pre>

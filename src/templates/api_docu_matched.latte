@@ -102,7 +102,7 @@
 
 		{if $route->getComment()}
 			<h2>Comment</h2>
-			<pre class="apiDocu-description">{nl2br($route->getComment())}</pre>
+			<pre class="apiDocu-description">{nl2br($route->getComment())|noescape}</pre>
 		{/if}
 
 		{if $route->getData()}

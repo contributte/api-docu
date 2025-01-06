@@ -39,7 +39,7 @@
 		"nette/http": "^3.2.3",
 		"nette/application": "^3.1.14",
 		"nette/di": "^3.1.8",
-		"latte/latte": "^2.6|^3.0",
+		"latte/latte": "^3.0",
 		"contributte/api-router": "^5.0 || ^6.0"
 	},
 	"require-dev": {

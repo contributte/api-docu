@@ -31,7 +31,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Contributte\\ApiDocu\\Tests\\": "tests"
+			"Tests\\": "tests"
 		}
 	},
 	"require": {
@@ -45,7 +45,7 @@
 	"require-dev": {
 		"contributte/qa": "^0.4",
 		"contributte/tester": "^0.3",
-		"contributte/phpstan": "^0.1",
+		"contributte/phpstan": "^0.2",
 		"mockery/mockery": "^1.6.6",
 		"tracy/tracy": "^2.10.5"
 	},
